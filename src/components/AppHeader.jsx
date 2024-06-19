@@ -1,20 +1,25 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
-import './AppHeader.css'; 
+import { Link } from 'react-router-dom';
+import stylesAppHeader from "./AppHeader.module.css"; 
+import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+
 
 const AppHeader = () => {
     return (
-        <header className="app-header">
-            <Link to="/constructor" className="header-button">
-                Конструктор
+        <header className={stylesAppHeader.header}>
+            <Link className={stylesAppHeader.hdlink} to="/constructor">
+            <BurgerIcon type="primary"/>
+                   <span className={stylesAppHeader.hdtext}>Конструктор</span>
             </Link>
-            <Link to="/orders" className="header-icon">
-                <img src="/path/to/orders-icon.png" alt="Лента заказов" /> {/* Замените на путь к вашей иконке */}
+            <Link className={stylesAppHeader.hdlink} to="/orders">
+                <ListIcon type="secondary" />
+                <span className={stylesAppHeader.hdtextinactive}>Лента заказов</span>
             </Link>
-            <Link to="/" className="header-logo">
-                <img src="/path/to/logo.png" alt="Логотип" /> {/* Замените на путь к вашему логотипу */}
+            <Link to="/" >
+                <Logo />
             </Link>
-            <Link to="/profile" className="header-button">
+            <Link className={stylesAppHeader.hdlink} to="/profile">
+            <ProfileIcon type='secondary' />
                 Личный кабинет
             </Link>
         </header>
