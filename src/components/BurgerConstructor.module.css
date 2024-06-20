@@ -2,3 +2,15 @@
     width: 40%; 
     /* padding: 0 20px;  */
 }
+
+.burgerTabs{
+    display: flex;
+    margin-top: 20px;
+}
+
+
+.burgerHeader{
+    margin-top: 40px;
+    font-size: 36px; /* Устанавливаем размер шрифта */
+    font-weight: 700; /* Устанавливаем вес шрифта */
+}

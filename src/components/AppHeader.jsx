@@ -44,7 +44,7 @@ const AppHeader = () => {
                 </Link>
             </div>
             
-            <div className={stylesAppHeader.section}>
+            <div className={stylesAppHeader.rightsection}>
             <Link 
                     className={stylesAppHeader.link} 
                     to="/orders"
