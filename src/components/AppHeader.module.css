@@ -1,10 +1,12 @@
 .header {
-    width: 100%;
+    width: 80%;
     min-height: 80px; 
-    padding: 0 40px; /* Это добавляет пространство слева и справа от header */
+    padding: 0 20px; 
+    /* Это добавляет пространство слева и справа от header */
     background-color: #1C1C21;
     display: flex;
     justify-content: space-between;
+    margin:auto;
   }
 
 
@@ -16,36 +18,34 @@
 }
 
 
-.hdlink {
+.link {
     text-decoration: none;  
     text-align: center;
     margin-right: 20px; /* Это добавляет пространство справа от каждого Link */
-
-}
-
-.section {
-    width: 25%;
-    display: flex;
-    flex-direction: row;
-    align-items: center; /* Это выравнивает элементы по центру внутри каждой секции */
-    justify-content: center; /* Это выравнивает элементы по центру по горизонтали */
-}
-
-
-.hdtext {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 16px;
-    line-height: 24px;
-    color:#F2F2F3;
-    margin-left: 10px
-}
-
-.hdtextinactive {
     font-family: 'JetBrains Mono', monospace;
     font-size: 16px;
     line-height: 24px;
     color: #8585AD;
     margin-left: 10px
+
+}
+
+.link:hover {
+    color: #F2F2F3; /* Это устанавливает цвет текста при наведении мыши */
+}
+
+
+.section {
+    width: 33%;
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Это выравнивает элементы по центру внутри каждой секции */
+    justify-content: center;
+
+}
+
+.icon {
+    margin-right: 5px; /* Задайте нужное вам расстояние */
 }
 
 
