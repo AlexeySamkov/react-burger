@@ -29,8 +29,8 @@ const AppHeader = () => {
                 <Link 
                     className={stylesAppHeader.link} 
                     to="/orders"
-                    onMouseEnter={() => setIsListHovered(true)} // Устанавливаем isHovered в true, когда мышь наводится на элемент
-                    onMouseLeave={() => setIsListHovered(false)} // Устанавливаем isHovered в false, когда мышь покидает элемент
+                    onMouseEnter={() => setIsListHovered(true)} 
+                    onMouseLeave={() => setIsListHovered(false)}
                 >    
                 <span className={stylesAppHeader.icon}>
                     {isListHovered ? <ListIcon type="primary"/> : <ListIcon type="secondary"/>}
@@ -48,8 +48,8 @@ const AppHeader = () => {
             <Link 
                     className={stylesAppHeader.link} 
                     to="/orders"
-                    onMouseEnter={() => setIsProfileHovered(true)} // Устанавливаем isHovered в true, когда мышь наводится на элемент
-                    onMouseLeave={() => setIsProfileHovered(false)} // Устанавливаем isHovered в false, когда мышь покидает элемент
+                    onMouseEnter={() => setIsProfileHovered(true)} 
+                    onMouseLeave={() => setIsProfileHovered(false)}
                 >  
                 <span className={stylesAppHeader.icon}>
                     {isProfileHovered ? <ProfileIcon type="primary"/> : <ProfileIcon type="secondary"/>}  

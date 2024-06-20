@@ -1,7 +1,7 @@
 .header {
     width: 80%;
     min-height: 80px; 
-    padding: 0 20px; 
+    /* padding: 0 20px;  */
     /* Это добавляет пространство слева и справа от header */
     background-color: #1C1C21;
     display: flex;
