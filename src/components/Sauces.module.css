@@ -1,9 +1,10 @@
-.bunsContainer {
+.saucesContainer {
     display: flex;
     flex-wrap: wrap;
+
   }
   
-  .bunItem {
+  .saucesItem {
     margin-right: 20px; /* отступ справа, чтобы элементы не прилипали друг к другу */
     width: 40%;
   }

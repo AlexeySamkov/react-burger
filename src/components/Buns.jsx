@@ -1,5 +1,6 @@
 import React from 'react';
 import stylesBuns from './Buns.module.css'; 
+import subtract from './../images/subtract.svg'
 
 
 const Buns = (props) => {
@@ -14,12 +15,8 @@ const Buns = (props) => {
        {buns.map((item) => (
        <div key={item._id} className={stylesBuns.bunItem}>         
          <img src={item.image} alt={item.name} />
-         <p>Price: {item.price}</p>
-         <p>Proteins: {item.proteins}</p>
-         <p>Fat: {item.fat}</p>
-         <p>Carbohydrates: {item.carbohydrates}</p>
-         <p>Calories: {item.calories}</p>
-         <h2>{item.name}</h2>         
+         <p>{item.price}<img src={subtract} alt="React Logo" /></p>
+         <p>{item.name}</p>         
        </div>
          ))}
        </div>

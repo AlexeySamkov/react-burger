@@ -14,3 +14,7 @@
     font-size: 36px; /* Устанавливаем размер шрифта */
     font-weight: 700; /* Устанавливаем вес шрифта */
 }
+
+.burgerBox{
+    overflow-y: auto;
+}
