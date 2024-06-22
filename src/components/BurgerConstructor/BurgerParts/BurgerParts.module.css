@@ -1,0 +1,27 @@
+
+
+
+.partsContainer {
+    display: flex;
+    flex-wrap: wrap;   
+    justify-content: center; /* выравниваем содержимое по центру по горизонтали */
+    align-items: center; /* выравниваем содержимое по центру по вертикали */ 
+  }
+  
+  .partsItem {
+    margin-right: 20px; /* отступ справа, чтобы элементы не прилипали друг к другу */
+    width: 40%;
+  }
+
+  .priceContainer {
+    display: flex; /* применяем Flexbox */
+    justify-content: center; /* выравниваем элементы по центру по горизонтали */
+    align-items: center; /* выравниваем элементы по центру по вертикали */
+    gap: 5px; /* добавляем пространство между элементами */
+}
+
+.nameContainer {
+  display: flex; /* применяем Flexbox */
+  justify-content: center; /* выравниваем содержимое по центру по горизонтали */
+  align-items: center; /* выравниваем содержимое по центру по вертикали */
+}

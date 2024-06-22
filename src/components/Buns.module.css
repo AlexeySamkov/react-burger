@@ -1,9 +1,0 @@
-.bunsContainer {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .bunItem {
-    margin-right: 20px; /* отступ справа, чтобы элементы не прилипали друг к другу */
-    width: 40%;
-  }
