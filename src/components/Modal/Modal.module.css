@@ -1,0 +1,28 @@
+
+  .modalContainer {
+    width: 500px;
+    height: 500px;
+    border-radius: 40px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
+    background-color: #1C1C21;
+    
+  }
+  
+
+  .closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+  }
+
+  

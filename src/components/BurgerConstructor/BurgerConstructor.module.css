@@ -18,9 +18,9 @@
 .burgerBox{    
     height: calc(100vh - 300px); /* высота экрана */
     overflow-y: auto; /* прокрутка по вертикали */          
-}
-
-.burgerBox::-webkit-scrollbar {
+  }
+  
+  .burgerBox::-webkit-scrollbar {
     width: 8px;
   }
   

@@ -5,14 +5,15 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import BurgerParts from './BurgerParts/BurgerParts';
 
 
-const BurgerConstructor = (props) => {
+const BurgerConstructor = ( {data} ) => {
 
     const [current, setCurrent] = React.useState('bun')
 
-    const buns = props.data.filter(item => item.type === 'bun');
-    const sauce = props.data.filter(item => item.type === 'sauce');
-    const inside = props.data.filter(item => item.type === 'main');
+    const buns = data.filter(item => item.type === 'bun');
+    const sauce = data.filter(item => item.type === 'sauce');
+    const main = data.filter(item => item.type === 'main');
 
+    
 
     return (
  
@@ -25,9 +26,9 @@ const BurgerConstructor = (props) => {
         </div>
 
         <div className={stylesBurgerConstructor.burgerBox}>
-            <BurgerParts burgerpart={buns} setCurrent={setCurrent}/> 
-            <BurgerParts burgerpart={sauce} setCurrent={setCurrent}/>
-            <BurgerParts burgerpart={inside} setCurrent={setCurrent}/>
+            <BurgerParts burgerpart={buns} /> 
+            <BurgerParts burgerpart={sauce} />
+            <BurgerParts burgerpart={main} />
         </div>
         </div>
     );
