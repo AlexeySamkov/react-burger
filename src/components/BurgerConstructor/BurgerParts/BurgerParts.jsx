@@ -36,7 +36,7 @@ const BurgerParts = ( { burgerpart, setCurrent }) => {
        <div className={stylesBurgerParts.partsContainer}>        
        {burgerpart.map((item) => (
         
-       <div key={item._id} className={stylesBurgerParts.partsItem}>         
+       <div ref={ref} key={item._id} className={stylesBurgerParts.partsItem}>         
          <img  src={item.image} alt={item.name} />
             <div className={stylesBurgerParts.priceContainer}>
                 <p>{item.price}</p>
