@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import stylesBurgerConstructor from './BurgerConstructor.module.css'; 
+import styles from './BurgerConstructor.module.css'; 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import BurgerParts from './BurgerParts/BurgerParts';
 
@@ -17,15 +17,15 @@ const BurgerConstructor = ( {data} ) => {
 
     return (
  
-        <div className={stylesBurgerConstructor.burgerconstructor}>
-        <div className={stylesBurgerConstructor.burgerHeader}>Соберите бургер</div>
-        <div className={stylesBurgerConstructor.burgerTabs}>
+        <div className={styles.burgerconstructor}>
+        <div className={styles.burgerHeader}>Соберите бургер</div>
+        <div className={styles.burgerTabs}>
            <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>Булки</Tab>
            <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>Соусы</Tab>
            <Tab value="main" active={current === 'main'} onClick={setCurrent}>Начинки</Tab>
         </div>
 
-        <div className={stylesBurgerConstructor.burgerBox}>
+        <div className={styles.burgerBox}>
             <BurgerParts burgerpart={buns} /> 
             <BurgerParts burgerpart={sauce} />
             <BurgerParts burgerpart={main} />

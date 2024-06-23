@@ -1,5 +1,53 @@
+
+
+
 .burgeringredients {
     width: 40%; 
     margin-right: 40px; 
     /* padding: 0 20px;  */
+    margin-top: 140px;
+
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: calc(100vh - 530px); /* высота экрана */
+    overflow-y: auto; /* прокрутка по вертикали */     
+    margin-top: 15px;
+
+    
+  }
+  
+.boxConstructorElement{
+    display:flex;
+    align-items: center;
+}
+
+.orderSection {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 40px; /* отступ сверху */
+    margin-bottom: 40px;
+}
+
+.orderSection p {
+    margin-right: 10px; /* отступ справа от текста */
+    margin-right: 10px; /* отступ справа от текста */
+}
+
+.totalPrice {
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+
+
+.downBun{
+    margin-top: 15px;
 }

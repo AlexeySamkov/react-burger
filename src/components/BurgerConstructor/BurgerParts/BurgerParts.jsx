@@ -1,8 +1,9 @@
 import React from 'react';
-import stylesBurgerParts from './BurgerParts.module.css'; 
+import styles from './BurgerParts.module.css'; 
 import subtract from './../../../images/subtract.svg'
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import Modal from './../../Modal/Modal'
+
 
 const BurgerParts = ( { burgerpart }) => {
   const [isModal1Open, setIsModal1Open] = React.useState(false);
@@ -30,17 +31,17 @@ const BurgerParts = ( { burgerpart }) => {
     return (
       <div>
           <h2>{getHeading(burgerpart[0].type)}</h2>
-          <div className={stylesBurgerParts.partsContainer}>        
+          <div className={styles.partsContainer}>        
               {burgerpart.map((item) => (             
                   <div key={item._id} 
-                       className={stylesBurgerParts.partsItem} 
+                       className={styles.partsItem} 
                        onClick={() => handleOpenModal(item)}>                
                       <img  src={item.image} alt={item.name} />
-                      <div className={stylesBurgerParts.priceContainer}>
+                      <div className={styles.priceContainer}>
                           <p>{item.price}</p>
                           <img src={subtract} alt={item.name} />
                       </div>
-                      <div className={stylesBurgerParts.nameContainer}>
+                      <div className={styles.nameContainer}>
                           <p>{item.name}</p>         
                       </div>
                       <Counter count={1} size="default" extraClass="m-1 counter" />   
@@ -49,15 +50,27 @@ const BurgerParts = ( { burgerpart }) => {
           </div>
           {isModal1Open && (
               <Modal isOpen={isModal1Open} onClose={() => setIsModal1Open(false)}>
-                  {currentIngredient && (
-                      <div className={stylesBurgerParts.modalContent}>
-                        <h2>Детали ингредиента</h2>
-                          <h2>{currentIngredient.name}</h2>
-                          <p>Price: {currentIngredient.price}</p>
-                          <img src={currentIngredient.image} alt={currentIngredient.name} />
-                      </div>
-                  )}
-              </Modal>
+              {currentIngredient && (
+                <div className={styles.modalContent}>               
+                  <img src={currentIngredient.image_large} alt={currentIngredient.name} className={styles.modalImage} />
+                  <h3 className={styles.modalName}>{currentIngredient.name}</h3>
+                  <div className={styles.modalNutrition}>
+                    <div className={styles.modalNutritionItem}>
+                      <p>Калории, ккал {currentIngredient.calories}</p>
+                    </div>
+                    <div className={styles.modalNutritionItem}>
+                      <p>Белки, г {currentIngredient.proteins}</p>
+                    </div>
+                    <div className={styles.modalNutritionItem}>
+                      <p>Жиры, г {currentIngredient.fat}</p>
+                    </div>
+                    <div className={styles.modalNutritionItem}>
+                      <p>Углеводы, г {currentIngredient.carbohydrates}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </Modal>
           )}
       </div>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import stylesModal from './Modal.module.css'
+import styles from './Modal.module.css'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const Modal = ({ isOpen, children, onClose }) => {
@@ -21,12 +21,18 @@ const Modal = ({ isOpen, children, onClose }) => {
   }
 
   return ReactDOM.createPortal(
-    <div className={stylesModal.modalContainer} onClick={onClose}>
-      <div onClick={(e) => e.stopPropagation()}>
-        <button className={stylesModal.closeButton} onClick={onClose}><CloseIcon type="primary" /></button>
-        {children}
+    <div className={styles.overlay}>
+      <div className={styles.modalContainer} onClick={onClose}>
+        <div onClick={(e) => e.stopPropagation()}>
+          <div className={styles.modalHeader}>
+            <h2>Детали ингредиента</h2>
+            <button className={styles.closeButton} onClick={onClose}><CloseIcon type="primary" /></button>
+          </div>
+          {children}
+        </div>
       </div>
-    </div>,
+    </div>
+    ,
     document.body
   );
 };

@@ -13,7 +13,7 @@ function App() {
       <AppHeader/>  
     <div className="App">
       {data.length > 0 ? <BurgerConstructor data={data}/> : <h2>Загрузка...</h2>}
-      <BurgerIngredients />          
+      {data.length > 0 ? <BurgerIngredients data={data}/> : <h2>Загрузка...</h2>}
     </div>
     </Router>
   );
