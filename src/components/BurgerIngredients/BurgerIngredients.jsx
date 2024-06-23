@@ -1,13 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './BurgerIngredients.module.css';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import Modal from './../Modal/Modal'
 
 
 
 const BurgerIngredients = ({ data }) => {
 
+    const [isModal2Open, setIsModal2Open] = React.useState(false);
+
     const total = data.reduce((sum, ingredient) => sum + ingredient.price, 0); // сумма ингредиентов
+
+
+
+    const handleOpenModal = () => {
+        setIsModal2Open(true);
+    }
+
     return (
         <div className={styles.burgeringredients}>
 
@@ -57,18 +68,51 @@ const BurgerIngredients = ({ data }) => {
             <div className={styles.orderSection}>
                 <div className={styles.totalPrice}>
                     <p>{total}</p>
-                    <CurrencyIcon type="primary" />                   
+                    <CurrencyIcon type="primary" />
                 </div>
                 <p></p>
-                <Button type="primary" size="medium">
+                <Button
+                    type="primary"
+                    size="medium"
+                    onClick={handleOpenModal}
+                >
                     Оформить заказ
                 </Button>
             </div>
 
+            <Modal header="Ваш заказ" isOpen={isModal2Open} onClose={() => setIsModal2Open(false)}>
+                <div className={styles.orderNumber}>
+                    034536
+                </div>            
+                <p>На сумму {total} Btc</p>
+            </Modal>
+
         </div>
+
 
     );
 
 }
+
+// проверяю типы 
+
+BurgerIngredients.propTypes = {
+    data: PropTypes.arrayOf(
+        PropTypes.shape({
+            _id: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            type: PropTypes.string.isRequired,
+            proteins: PropTypes.number.isRequired,
+            fat: PropTypes.number.isRequired,
+            carbohydrates: PropTypes.number.isRequired,
+            calories: PropTypes.number.isRequired,
+            price: PropTypes.number.isRequired,
+            image: PropTypes.string.isRequired,
+            image_mobile: PropTypes.string.isRequired,
+            image_large: PropTypes.string.isRequired,
+            __v: PropTypes.number.isRequired,
+        })
+    ).isRequired
+};
 
 export default BurgerIngredients;
