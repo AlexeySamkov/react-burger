@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import styles from './Modal.module.css'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const Modal = ({ isOpen, children, onClose, header}) => {
+const Modal = ({ isOpen, children, onClose, header }) => {
   useEffect(() => {
     function onKeyDown(event) {
-      if (event.keyCode === 27) { // 27 is the keyCode for the Esc key
+      if (event.key === "Escape") {
         onClose();
       }
     }
@@ -21,8 +21,12 @@ const Modal = ({ isOpen, children, onClose, header}) => {
   }
 
   return ReactDOM.createPortal(
-    <div onClick={onClose} className={styles.overlay}>
-      <div className={styles.modalContainer} onClick={onClose}>
+    <div className={styles.overlay} onClick={(e) => {
+      if (e.target === e.currentTarget) {
+        onClose();
+      }
+    }}>
+      <div className={styles.modalContainer} >
         <div onClick={(e) => e.stopPropagation()}>
           <div className={styles.modalHeader}>
             <h2>{header}</h2>
@@ -31,9 +35,9 @@ const Modal = ({ isOpen, children, onClose, header}) => {
           {children}
         </div>
       </div>
-    </div>
+    </div >
     ,
-    document.body
+    document.querySelector("#modal")
   );
 };
 

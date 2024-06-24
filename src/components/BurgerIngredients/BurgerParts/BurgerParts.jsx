@@ -3,7 +3,7 @@ import styles from './BurgerParts.module.css';
 import subtract from './../../../images/subtract.svg'
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import Modal from './../../Modal/Modal'
-
+import { ingredientsShape } from './../../../utils/types';
 
 const BurgerParts = ({ burgerpart }) => {
   const [isModal1Open, setIsModal1Open] = React.useState(false);
@@ -75,4 +75,13 @@ const BurgerParts = ({ burgerpart }) => {
     </div>
   );
 }
+
+// проверяю типы 
+
+BurgerParts.propTypes = {
+  burgerpart: ingredientsShape
+};
+
+
+
 export default BurgerParts;

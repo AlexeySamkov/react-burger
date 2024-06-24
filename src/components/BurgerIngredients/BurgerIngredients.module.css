@@ -1,58 +1,29 @@
-
-
-
-.burgeringredients {
-    width: 40%; 
-    margin-right: 40px; 
+.burgerIngredients {
+    width: 40%;
     /* padding: 0 20px;  */
-    margin-top: 140px;
-
 }
 
-.container {
+.burgerTabs {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
-    height: calc(100vh - 530px); /* высота экрана */
-    overflow-y: auto; /* прокрутка по вертикали */     
-    margin-top: 15px;
-
-    
-  }
-  
-.boxConstructorElement{
-    display:flex;
-    align-items: center;
-}
-
-.orderSection {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-top: 40px; /* отступ сверху */
-    margin-bottom: 40px;
-}
-
-.orderSection p {
-    margin-right: 10px; /* отступ справа от текста */
-    margin-right: 10px; /* отступ справа от текста */
-}
-
-.totalPrice {
-    display: flex;
-    align-items: center;
+    margin-top: 20px;
 }
 
 
-.downBun{
-    margin-top: 15px;
+.burgerHeader {
+    margin-top: 40px;
+    font-size: 36px;
+    /* Устанавливаем размер шрифта */
+    font-weight: 700;
+    /* Устанавливаем вес шрифта */
 }
 
+.burgerBox {
+    height: calc(100vh - 300px);
+    /* высота экрана */
+    overflow-y: auto;
+    /* прокрутка по вертикали */
+}
 
-.orderNumber {
-    font-family: 'Iceland', sans-serif;
-    font-weight: 400;
-    font-size: 144px;
-    line-height: 120px;
-    text-align: center;
+.burgerBox::-webkit-scrollbar {
+    width: 8px;
 }

@@ -1,0 +1,13 @@
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: top;
+  font-family: 'JetBrains Mono', monospace;
+
+}
+
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('./../../fonts/JetBrains_Mono/webfonts/JetBrainsMono-Regular.woff2') format('woff2');
+}

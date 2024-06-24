@@ -1,16 +1,16 @@
 .header {
     width: 80%;
-    min-height: 80px; 
+    min-height: 80px;
     /* padding: 0 20px;  */
     /* Это добавляет пространство слева и справа от header */
     background-color: #1C1C21;
     display: flex;
     justify-content: left;
-    margin:auto;
-  }
+    margin: auto;
+}
 
 
-  /* @font-face {
+/* @font-face {
     font-family: 'JetBrains Mono';
     src: url('./../fonts/JetBrains_Mono/webfonts/JetBrainsMono-Regular.woff2') format('woff2');         
     font-weight: 400;
@@ -19,10 +19,10 @@
 
 
 .link {
-    text-decoration: none;  
+    text-decoration: none;
     text-align: center;
-    margin-right: 20px; 
-     /* Это добавляет пространство справа от каждого Link */
+    margin-right: 20px;
+    /* Это добавляет пространство справа от каждого Link */
     font-family: 'JetBrains Mono', monospace;
     font-size: 16px;
     line-height: 24px;
@@ -32,7 +32,8 @@
 }
 
 .link:hover {
-    color: #F2F2F3; /* Это устанавливает цвет текста при наведении мыши */
+    color: #F2F2F3;
+    /* Это устанавливает цвет текста при наведении мыши */
 }
 
 
@@ -42,7 +43,7 @@
     flex-direction: row;
     /* align-items: center; Это выравнивает элементы по центру внутри каждой секции */
     /* justify-content: center; */
-    margin:auto;
+    margin: auto;
 }
 
 .rightsection {
@@ -51,12 +52,11 @@
     /* flex-direction: row; */
     /* align-items: right;  */
     justify-content: right;
-    margin:auto;
+    margin: auto;
 }
 
 
 .icon {
-    margin-right: 5px; /* Задайте нужное вам расстояние */
+    margin-right: 5px;
+    /* Задайте нужное вам расстояние */
 }
-
-
