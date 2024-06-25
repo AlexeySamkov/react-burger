@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import BurgerParts from './BurgerParts/BurgerParts';
-import { ingredientsShape } from './../../utils/types';
+import { burgerPartShape } from './../../utils/types';
 
 const BurgerIngredients = ({ data }) => {
 
@@ -12,9 +12,6 @@ const BurgerIngredients = ({ data }) => {
     const buns = data.filter(item => item.type === 'bun');
     const sauce = data.filter(item => item.type === 'sauce');
     const main = data.filter(item => item.type === 'main');
-
-
-
     return (
 
         <div className={styles.burgerIngredients}>
@@ -35,11 +32,8 @@ const BurgerIngredients = ({ data }) => {
 };
 
 // проверяю типы 
-
 BurgerIngredients.propTypes = {
-    data: ingredientsShape.isRequired
+    data: burgerPartShape.isRequired
 };
-
-
 
 export default BurgerIngredients;

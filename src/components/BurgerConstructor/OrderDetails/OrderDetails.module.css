@@ -1,0 +1,47 @@
+.orderDetails {
+    display: flex;
+    flex-direction: column;
+}
+
+.orderNumber {
+    font-family: 'Iceland';
+    font-weight: 400;
+    font-size: 144px;
+    line-height: 120px;
+    text-align: center;
+}
+
+
+.yourIdentifier {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+    text-align: center;
+    margin-top: 32px;
+}
+
+.image {
+    width: 120px;
+    height: 120px;
+    top: 362px;
+    left: 300px;
+    margin: 0 auto;
+    margin-top: 60px;
+}
+
+
+.textBelow {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+}
+
+
+.textBelow2 {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+    color: #8585AD;
+}

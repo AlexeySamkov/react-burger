@@ -1,0 +1,31 @@
+/* стили для оформления элементов внутри модального окна*/
+
+.modalContent {
+    padding: 40px;
+    text-align: center;
+}
+
+
+.modalImage {
+    width: 100%;
+    height: auto;
+}
+
+.modalName {
+    margin-top: 16px;
+    margin-bottom: 20px;
+}
+
+.modalNutrition {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modalNutritionItem {
+    flex: 1;
+    margin: 0 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

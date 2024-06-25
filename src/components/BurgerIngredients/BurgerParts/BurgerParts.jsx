@@ -3,11 +3,21 @@ import styles from './BurgerParts.module.css';
 import subtract from './../../../images/subtract.svg'
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import Modal from './../../Modal/Modal'
-import { ingredientsShape } from './../../../utils/types';
+import { burgerPartShape } from './../../../utils/types';
+import IngredientDetails from './../IngredientDetails/IngredientDetails'
+import { useModal } from './../../../hooks/useModal'
+
 
 const BurgerParts = ({ burgerpart }) => {
-  const [isModal1Open, setIsModal1Open] = React.useState(false);
+
   const [currentIngredient, setCurrentIngredient] = React.useState(null);
+
+  const handleOpenModal = (item) => {
+    openModal();
+    setCurrentIngredient(item);
+  }
+
+  const { isModalOpen, openModal, closeModal } = useModal();
 
 
   const getHeading = (type) => {
@@ -23,10 +33,7 @@ const BurgerParts = ({ burgerpart }) => {
     }
   }
 
-  const handleOpenModal = (ingredient) => {
-    setCurrentIngredient(ingredient);
-    setIsModal1Open(true);
-  }
+
 
   return (
     <div>
@@ -48,28 +55,9 @@ const BurgerParts = ({ burgerpart }) => {
           </div>
         ))}
       </div>
-      {isModal1Open && (
-        <Modal header={"Детали ингредиента"} isOpen={isModal1Open} onClose={() => setIsModal1Open(false)}>
-          {currentIngredient && (
-            <div className={styles.modalContent}>
-              <img src={currentIngredient.image_large} alt={currentIngredient.name} className={styles.modalImage} />
-              <h3 className={styles.modalName}>{currentIngredient.name}</h3>
-              <div className={styles.modalNutrition}>
-                <div className={styles.modalNutritionItem}>
-                  <p>Калории, ккал {currentIngredient.calories}</p>
-                </div>
-                <div className={styles.modalNutritionItem}>
-                  <p>Белки, г {currentIngredient.proteins}</p>
-                </div>
-                <div className={styles.modalNutritionItem}>
-                  <p>Жиры, г {currentIngredient.fat}</p>
-                </div>
-                <div className={styles.modalNutritionItem}>
-                  <p>Углеводы, г {currentIngredient.carbohydrates}</p>
-                </div>
-              </div>
-            </div>
-          )}
+      {isModalOpen && (
+        <Modal header={"Детали ингредиента"} onClose={closeModal}>
+          {currentIngredient && (<IngredientDetails currentIngredient={currentIngredient} />)}
         </Modal>
       )}
     </div>
@@ -79,7 +67,7 @@ const BurgerParts = ({ burgerpart }) => {
 // проверяю типы 
 
 BurgerParts.propTypes = {
-  burgerpart: ingredientsShape
+  burgerpart: burgerPartShape
 };
 
 
