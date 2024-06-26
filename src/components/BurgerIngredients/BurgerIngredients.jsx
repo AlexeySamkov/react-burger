@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState} from 'react';
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import BurgerParts from './BurgerParts/BurgerParts';
@@ -7,7 +7,7 @@ import { burgerPartShape } from './../../utils/types';
 const BurgerIngredients = ({ data }) => {
 
 
-    const [current, setCurrent] = React.useState('bun')
+    const [current, setCurrent] = useState('bun')
 
     const buns = data.filter(item => item.type === 'bun');
     const sauce = data.filter(item => item.type === 'sauce');

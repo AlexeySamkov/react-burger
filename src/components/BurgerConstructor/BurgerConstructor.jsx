@@ -1,27 +1,19 @@
-import React from 'react';
 import styles from './BurgerConstructor.module.css';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from './../Modal/Modal'
 import { burgerPartShape } from './../../utils/types';
 import OrderDetails from './OrderDetails/OrderDetails'
+import { useModal } from './../../hooks/useModal'
 
 const BurgerConstructor = ({ data }) => {
     
-    const [isModal2Open, setIsModal2Open] = React.useState(false);
+    const { isModalOpen, openModal, closeModal } = useModal();
     
     const everythingExceptBuns = data.filter(item => item.type !== 'bun');
     
     const total = everythingExceptBuns.reduce((sum, ingredient) => sum + ingredient.price, 0); // сумма ингредиентов
     
-    const handleOpenModal = () => {
-        setIsModal2Open(true);
-    }
-    
-    const handleCloseModal = () => {
-        setIsModal2Open(false);
-    }
-
     return (
         <div className={styles.burgerConstructor}>
             <div className={styles.topBun}>
@@ -43,12 +35,12 @@ const BurgerConstructor = ({ data }) => {
                     <p>{total}</p>
                     <CurrencyIcon type="primary" />
                 </div>
-                <Button type="primary" size="medium" onClick={handleOpenModal} htmlType="button" >
+                <Button type="primary" size="medium" onClick={openModal} htmlType="button" >
                     Оформить заказ
                 </Button>
             </div>
-            {isModal2Open && (
-                <Modal header="Ваш заказ" onClose={handleCloseModal}>
+            {isModalOpen && (
+                <Modal header="Ваш заказ" onClose={closeModal}>
                     <OrderDetails total={total} />
                 </Modal>
             )}

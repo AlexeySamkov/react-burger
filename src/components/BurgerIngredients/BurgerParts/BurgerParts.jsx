@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import styles from './BurgerParts.module.css';
 import subtract from './../../../images/subtract.svg'
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -7,18 +7,15 @@ import { burgerPartShape } from './../../../utils/types';
 import IngredientDetails from './../IngredientDetails/IngredientDetails'
 import { useModal } from './../../../hooks/useModal'
 
-
 const BurgerParts = ({ burgerpart }) => {
 
-  const [currentIngredient, setCurrentIngredient] = React.useState(null);
-
-  const handleOpenModal = (item) => {
-    openModal();
-    setCurrentIngredient(item);
-  }
-
+  const [currentIngredient, setCurrentIngredient] = useState(null);
   const { isModalOpen, openModal, closeModal } = useModal();
 
+  const handleOpenModal = (item) => {
+    setCurrentIngredient(item);
+    openModal();
+  }
 
   const getHeading = (type) => {
     switch (type) {
@@ -32,8 +29,6 @@ const BurgerParts = ({ burgerpart }) => {
         return 'UFO';
     }
   }
-
-
 
   return (
     <div>
@@ -65,11 +60,8 @@ const BurgerParts = ({ burgerpart }) => {
 }
 
 // проверяю типы 
-
 BurgerParts.propTypes = {
   burgerpart: burgerPartShape
 };
-
-
 
 export default BurgerParts;

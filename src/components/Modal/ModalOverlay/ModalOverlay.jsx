@@ -10,8 +10,7 @@ const ModalOverlay = ({closeModal}) => {
     }
 
     return (
-        <div className={styles.overlay} onClick={overlayClick} >
-        </div >
+        <div className={styles.overlay} onClick={overlayClick} />
     );
 };
 
