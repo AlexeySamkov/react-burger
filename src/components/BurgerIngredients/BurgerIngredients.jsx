@@ -1,31 +1,65 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import BurgerParts from './BurgerParts/BurgerParts';
+import Modal from './../Modal/Modal'
+import IngredientDetails from './IngredientDetails/IngredientDetails'
+
 import { burgerPartShape } from './../../utils/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useModal } from './../../hooks/useModal'
+import { setCurrentIngredient, clearCurrentIngredient } from '../../services/actions/currentIngredientActions';
+import BurgerParts from './BurgerParts/BurgerParts';
 
-const BurgerIngredients = ({ data }) => {
+
+const BurgerIngredients = () => {
 
 
-    const [current, setCurrent] = useState('bun')
+    const [current, setCurrent] = useState(null)
 
-    const buns = data.filter(item => item.type === 'bun');
-    const sauce = data.filter(item => item.type === 'sauce');
-    const main = data.filter(item => item.type === 'main');
+    const dispatch = useDispatch();
+    const { ingredients, groupTypes, currentIngredient } = useSelector(state => state.ingredients);
+    const { isModalOpen, openModal, closeModal } = useModal();
+
+    const handleOpenModal = (item) => {
+        dispatch(setCurrentIngredient(item));
+        openModal();
+    };
+
+    const handleCloseModal = () => {
+        dispatch(clearCurrentIngredient());
+        closeModal();
+    };
+
+
+
     return (
-
         <div className={styles.burgerIngredients}>
             <div className={styles.burgerHeader}>Соберите бургер</div>
             <div className={styles.burgerTabs}>
-                <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>Булки</Tab>
-                <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>Соусы</Tab>
-                <Tab value="main" active={current === 'main'} onClick={setCurrent}>Начинки</Tab>
+                {groupTypes.map((groupType) => (
+                    <Tab key={groupType.type} value={groupType.type} active={current === groupType.type} onClick={setCurrent} >
+                        {groupType.name}
+                    </Tab>
+                ))}
             </div>
-
             <div className={styles.burgerBox}>
-                <BurgerParts burgerpart={buns} />
-                <BurgerParts burgerpart={sauce} />
-                <BurgerParts burgerpart={main} />
+                <div>
+                    {groupTypes.map((groupType) =>
+                        <div key={groupType.type}>
+                            <h2>{groupType.name}</h2>
+                            <div className={styles.partsContainer}>
+                                {ingredients.filter(item => item.type === groupType.type).map((item) => (
+                                    <BurgerParts key={item._id} item={item} handleOpenModal={handleOpenModal} />
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                    {isModalOpen && (
+                        <Modal header={"Детали ингредиента"} onClose={handleCloseModal}>
+                            {currentIngredient && (<IngredientDetails currentIngredient={currentIngredient} />)}
+                        </Modal>
+                    )}
+                </div>
             </div>
         </div>
     );
@@ -33,7 +67,7 @@ const BurgerIngredients = ({ data }) => {
 
 // проверяю типы 
 BurgerIngredients.propTypes = {
-    data: burgerPartShape.isRequired
+    ingredients: burgerPartShape
 };
 
 export default BurgerIngredients;
