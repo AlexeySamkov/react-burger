@@ -1,13 +1,12 @@
 import styles from './BurgerParts.module.css';
-import subtract from './../../../images/subtract.svg'
-import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
+import subtract from './../../../images/subtract.svg';
+import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { burgerPartShape } from './../../../utils/types';
 import { useDrag } from 'react-dnd';
 import { useDispatch } from 'react-redux';
-import { addIngredientToConstructor } from '../../../services/actions/ingredientConstructorActions';
+import { addIngredientToConstructor, removeAllBunsFromConstructor } from '../../../services/actions/ingredientConstructorActions';
 
 const BurgerParts = ({ item, handleOpenModal }) => {
-
     const dispatch = useDispatch();
     const [{ isDragging }, dragRef] = useDrag({
         type: 'ingredient',
@@ -15,6 +14,11 @@ const BurgerParts = ({ item, handleOpenModal }) => {
         end: (draggedItem, monitor) => {
             const dropResult = monitor.getDropResult();
             if (dropResult && dropResult.name === 'BurgerConstructor') {
+                if (item.type === 'bun') {
+                    // Удаляем все булки
+                    dispatch(removeAllBunsFromConstructor());
+                }
+                // Добавляем новый ингредиент
                 dispatch(addIngredientToConstructor(item));
             }
         },

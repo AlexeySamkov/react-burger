@@ -1,20 +1,17 @@
 import { useState } from 'react';
 import styles from './BurgerIngredients.module.css';
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import Modal from './../Modal/Modal'
-import IngredientDetails from './IngredientDetails/IngredientDetails'
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import Modal from './../Modal/Modal';
+import IngredientDetails from './IngredientDetails/IngredientDetails';
 
 import { burgerPartShape } from './../../utils/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useModal } from './../../hooks/useModal'
+import { useModal } from './../../hooks/useModal';
 import { setCurrentIngredient, clearCurrentIngredient } from '../../services/actions/currentIngredientActions';
 import BurgerParts from './BurgerParts/BurgerParts';
 
-
 const BurgerIngredients = () => {
-
-
-    const [current, setCurrent] = useState(null)
+    const [current, setCurrent] = useState(null);
 
     const dispatch = useDispatch();
     const { ingredients, groupTypes, currentIngredient } = useSelector(state => state.ingredients);
@@ -29,8 +26,6 @@ const BurgerIngredients = () => {
         dispatch(clearCurrentIngredient());
         closeModal();
     };
-
-
 
     return (
         <div className={styles.burgerIngredients}>
@@ -65,7 +60,6 @@ const BurgerIngredients = () => {
     );
 };
 
-// проверяю типы 
 BurgerIngredients.propTypes = {
     ingredients: burgerPartShape
 };
