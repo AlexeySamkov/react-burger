@@ -1,6 +1,7 @@
+import { useMemo, useCallback } from 'react';
 import styles from './BurgerConstructor.module.css';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from './../Modal/Modal';
 import { burgerPartShape } from './../../utils/types';
 import OrderDetails from './OrderDetails/OrderDetails';
@@ -8,11 +9,13 @@ import { useModal } from './../../hooks/useModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { placeOrder } from '../../services/actions/orderActions';
 import { useDrop } from 'react-dnd';
-import { removeIngredientFromConstructor } from '../../services/actions/ingredientConstructorActions';
+import { removeIngredientFromConstructor, updateIngredientOrder } from '../../services/actions/ingredientConstructorActions';
+
+import DraggableIngredient from './DraggableIngredient/DraggableIngredient';
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
-  const { constructorIngredients } = useSelector(state => state.ingredients);
+  const { constructorIngredients, order } = useSelector(state => state.ingredients);
 
   const topBun = constructorIngredients.find(ingredient => ingredient.type === "bun" && ingredient.position === "top");
   const bottomBun = constructorIngredients.find(ingredient => ingredient.type === "bun" && ingredient.position === "bottom");
@@ -29,12 +32,21 @@ const BurgerConstructor = () => {
     dispatch(removeIngredientFromConstructor(uniqueId));
   };
 
+  const moveIngredient = useCallback((dragIndex, hoverIndex) => {
+    dispatch(updateIngredientOrder(dragIndex, hoverIndex));
+  }, [dispatch]);
+
   const handlePlaceOrder = () => {
-    dispatch(placeOrder(constructorIngredients));
+    const ingredientIds = constructorIngredients.map(ingredient => ingredient._id);
+    dispatch(placeOrder(ingredientIds));
     openModal();
   };
 
-  const total = constructorIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0);
+  // гарантирует, что сумма будет пересчитываться только тогда, когда изменяется constructorIngredients
+  // оптимизированное вычисление суммы заказа, предотвращая ненужные рендеры компонента BurgerConstructor.
+  const total = useMemo(() => {
+    return constructorIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0);
+  }, [constructorIngredients]);
 
   return (
     <div ref={dropRef} className={styles.burgerConstructor}>
@@ -43,7 +55,7 @@ const BurgerConstructor = () => {
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={topBun.name}
+            text={`${topBun.name} (верх)`}
             price={topBun.price}
             thumbnail={topBun.image}
           />
@@ -51,15 +63,13 @@ const BurgerConstructor = () => {
       </div>
       <div className={styles.container}>
         {nonBunIngredients.map((ingredient, index) => (
-          <div key={ingredient.uniqueId} className={styles.ingredientItem}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-              text={ingredient.name}
-              price={ingredient.price}
-              thumbnail={ingredient.image}
-              handleClose={() => handleRemoveIngredient(ingredient.uniqueId)}
-            />
-          </div>
+          <DraggableIngredient
+            key={ingredient.uniqueId}
+            index={index}
+            ingredient={ingredient}
+            moveIngredient={moveIngredient}
+            handleRemoveIngredient={handleRemoveIngredient}
+          />
         ))}
       </div>
       <div className={styles.downBun}>
@@ -67,7 +77,7 @@ const BurgerConstructor = () => {
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={bottomBun.name}
+            text={`${bottomBun.name} (низ)`}
             price={bottomBun.price}
             thumbnail={bottomBun.image}
           />
@@ -78,13 +88,13 @@ const BurgerConstructor = () => {
           <p>{total}</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button type="primary" size="medium" onClick={handlePlaceOrder}>
+        <Button htmlType="button" type="primary" size="medium" onClick={handlePlaceOrder}>
           Оформить заказ
         </Button>
       </div>
       {isModalOpen && (
         <Modal header="Ваш заказ" onClose={closeModal}>
-          <OrderDetails total={total} />
+          <OrderDetails order={order} />
         </Modal>
       )}
     </div>

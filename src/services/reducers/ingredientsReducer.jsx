@@ -10,7 +10,8 @@ import {
   REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
   REMOVE_ALL_BUNS_FROM_CONSTRUCTOR,
   PLACE_ORDER_SUCCESS,
-  PLACE_ORDER_FAILED
+  PLACE_ORDER_FAILED,
+  UPDATE_INGREDIENT_ORDER
 } from './../actions/actions';
 
 import { getHeading } from './../../utils/getHeading';
@@ -70,8 +71,6 @@ export const ingredientsReducer = createReducer(initialState, (builder) => {
         // state.ingredients = state.ingredients.map(ingredient => {...}):
         // Обновляется массив ingredients, увеличивая счётчик (counter) на 2 для добавленного ингредиента, 
         // так как булочка добавляется двумя частями.
-        // честно говоря получилась какая то сложнота, 
-        // но все мылсли сходятся именно к тому, что бы менять state.ingredients
         state.ingredients = state.ingredients.map(ingredient =>
           ingredient._id === newIngredient._id
             ? { ...ingredient, counter: ingredient.counter + 2 }
@@ -116,5 +115,22 @@ export const ingredientsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(PLACE_ORDER_FAILED, (state, action) => {
       state.error = action.error;
+    })
+
+    // Array.splice() возвращает массив, содержащий удаленные элементы.
+    //  Если никакие элементы не были удалены, возвращает пустой массив.
+
+    .addCase(UPDATE_INGREDIENT_ORDER, (state, action) => {
+      const { dragIndex, hoverIndex } = action.payload;
+      const nonBunIngredients = state.constructorIngredients.filter(ingredient => ingredient.type !== 'bun');
+      const [draggedItem] = nonBunIngredients.splice(dragIndex, 1);
+      nonBunIngredients.splice(hoverIndex, 0, draggedItem);
+
+      // что бы обновить общий массив constructorIngredients, оставляя булки на местах
+      state.constructorIngredients = [
+        ...state.constructorIngredients.filter(ingredient => ingredient.type === 'bun' && ingredient.position === 'top'),
+        ...nonBunIngredients,
+        ...state.constructorIngredients.filter(ingredient => ingredient.type === 'bun' && ingredient.position === 'bottom')
+      ];
     });
 });
