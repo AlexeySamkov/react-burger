@@ -16,10 +16,14 @@
     overflow-y: auto;
     /* прокрутка по вертикали */
     margin-top: 15px;
-
-
 }
 
+.emptyMessage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+  }
 
 .orderSection {
     display: flex;

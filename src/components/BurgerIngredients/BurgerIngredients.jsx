@@ -3,7 +3,6 @@ import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from './../Modal/Modal';
 import IngredientDetails from './IngredientDetails/IngredientDetails';
-import { burgerPartShape } from './../../utils/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from './../../hooks/useModal';
 import { setCurrentIngredient, clearCurrentIngredient } from '../../services/actions/currentIngredientActions';
@@ -107,10 +106,6 @@ const BurgerIngredients = () => {
             </div>
         </div>
     );
-};
-
-BurgerIngredients.propTypes = {
-    ingredients: burgerPartShape
 };
 
 export default BurgerIngredients;

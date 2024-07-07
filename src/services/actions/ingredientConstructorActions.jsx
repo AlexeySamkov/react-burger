@@ -11,14 +11,14 @@ import {
 export const addIngredientToConstructor = (ingredient) => {
   return {
     type: ADD_INGREDIENT_TO_CONSTRUCTOR,
-    payload: { ...ingredient, uniqueId: uuidv4() } // Добавляем уникальный идентификатор
+    payload: { ...ingredient, uniqueId: uuidv4() } 
   };
 };
 
 export const removeIngredientFromConstructor = (uniqueId) => {
   return {
     type: REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
-    payload: uniqueId // Удаляем ингредиент по уникальному идентификатору
+    payload: uniqueId 
   };
 };
 
