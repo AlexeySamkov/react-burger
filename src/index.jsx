@@ -7,16 +7,18 @@ import store from './services/store'
 import { Provider } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') 
+  document.getElementById('root')
 );
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-    <DndProvider backend={HTML5Backend}>
-      <App />
+      <DndProvider backend={HTML5Backend}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </DndProvider>
     </Provider>
   </React.StrictMode>

@@ -1,37 +1,30 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import Modal from './../Modal/Modal';
-import IngredientDetails from './IngredientDetails/IngredientDetails';
 import { useDispatch, useSelector } from 'react-redux';
-import { useModal } from './../../hooks/useModal';
-import { setCurrentIngredient, clearCurrentIngredient } from '../../services/actions/currentIngredientActions';
+import { setCurrentIngredient } from '../../services/actions/currentIngredientActions';
 import BurgerParts from './BurgerParts/BurgerParts';
+
 
 const BurgerIngredients = () => {
     const [current, setCurrent] = useState('bun');
     const dispatch = useDispatch();
-    const { ingredients, currentIngredient } = useSelector(state => state.ingredients);
-    const { isModalOpen, openModal, closeModal } = useModal();
-
+    const { ingredients } = useSelector(state => state.ingredients);
+    const navigate = useNavigate();
+    const location = useLocation();
     const containerRef = useRef(null);
     const bunRef = useRef(null);
     const sauceRef = useRef(null);
     const mainRef = useRef(null);
 
-    const handleOpenModal = (item) => {
+    const handleIngredientClick = (item) => {
         dispatch(setCurrentIngredient(item));
-        openModal();
+        navigate(`/ingredients/${item._id}`, { state: { background: location } });
     };
-
-    const handleCloseModal = () => {
-        dispatch(clearCurrentIngredient());
-        closeModal();
-    };
-
-
-    // Метод elem.getBoundingClientRect() возвращает координаты в контексте окна для минимального 
-    // по размеру прямоугольника, который заключает в себе элемент elem, в виде объекта встроенного класса
+    // { state: { background: location } }:
+    // Это объект состояния, который будет передан вместе с навигацией. Он используется для передачи дополнительной информации в новый маршрут.
+    // В данном случае, передается состояние с ключом background, значение которого равно текущему объекту location.
     const handleScroll = () => {
         const containerTop = containerRef.current.getBoundingClientRect().top;
         const bunTop = bunRef.current.getBoundingClientRect().top;
@@ -49,16 +42,21 @@ const BurgerIngredients = () => {
         }
     };
 
+    // При монтировании компонента, useEffect    
+    // Получает текущий элемент через containerRef.current.
+    // Добавляет к этому элементу обработчик события scroll, который вызывает функцию handleScroll при прокрутке.
+    // Когда компонент размонтируется, useEffect вызовет функцию очистки, возвращаемую функцией-побочным эффектом.
+    // Удаляет обработчик события scroll из элемента, на который указывает containerRef.
+    // такая конструкция во избежание утечек памяти, т.к. скролл может вызываться много раз, 
+
     useEffect(() => {
         const container = containerRef.current;
         container.addEventListener('scroll', handleScroll);
-
         return () => {
             container.removeEventListener('scroll', handleScroll);
         };
     }, []);
 
-    // scrollIntoView: При клике на таб, соответствующая секция плавно прокручивается в видимую область.
     return (
         <div className={styles.burgerIngredients}>
             <div className={styles.burgerHeader}>Соберите бургер</div>
@@ -78,7 +76,7 @@ const BurgerIngredients = () => {
                     <h2>Булки</h2>
                     <div className={styles.partsContainer}>
                         {ingredients.filter(item => item.type === 'bun').map((item) => (
-                            <BurgerParts key={item._id} item={item} handleOpenModal={handleOpenModal} />
+                            <BurgerParts key={item._id} item={item} handleOpenModal={handleIngredientClick} />
                         ))}
                     </div>
                 </div>
@@ -86,7 +84,7 @@ const BurgerIngredients = () => {
                     <h2>Соусы</h2>
                     <div className={styles.partsContainer}>
                         {ingredients.filter(item => item.type === 'sauce').map((item) => (
-                            <BurgerParts key={item._id} item={item} handleOpenModal={handleOpenModal} />
+                            <BurgerParts key={item._id} item={item} handleOpenModal={handleIngredientClick} />
                         ))}
                     </div>
                 </div>
@@ -94,15 +92,10 @@ const BurgerIngredients = () => {
                     <h2>Начинки</h2>
                     <div className={styles.partsContainer}>
                         {ingredients.filter(item => item.type === 'main').map((item) => (
-                            <BurgerParts key={item._id} item={item} handleOpenModal={handleOpenModal} />
+                            <BurgerParts key={item._id} item={item} handleOpenModal={handleIngredientClick} />
                         ))}
                     </div>
                 </div>
-                {isModalOpen && (
-                    <Modal header={"Детали ингредиента"} onClose={handleCloseModal}>
-                        {currentIngredient && (<IngredientDetails currentIngredient={currentIngredient} />)}
-                    </Modal>
-                )}
             </div>
         </div>
     );
