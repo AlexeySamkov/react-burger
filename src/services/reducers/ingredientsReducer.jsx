@@ -108,5 +108,9 @@ export const ingredientsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(REMOVE_ALL_INGREDIENTS_FROM_CONSTRUCTOR, (state) => {
       state.constructorIngredients = [];
+      state.ingredients = state.ingredients.map(ingredient => ({
+        ...ingredient,
+        counter: 0
+      }));
     });
 });

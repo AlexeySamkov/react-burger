@@ -1,46 +1,96 @@
-# Getting Started with Create React App
+<h2>Космическая бургерная</h2>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```arduino 
+src/
+├── components/
+│   ├── AppHeader/
+│   │   ├── AppHeader.jsx
+│   │   └── AppHeader.module.css
+│   ├── BurgerIngredients/
+│   │   ├── IngredientDetails/
+│   │   │   ├── IngredientDetails.jsx
+│   │   │   └── IngredientDetails.module.css
+│   │   └── BurgerIngredients.jsx
+│   ├── Modal/
+│   │   ├── Modal.jsx
+│   │   └── Modal.module.css
+│   ├── Profile/
+│   │   ├── Profile.jsx
+│   │   └── Profile.module.css
+│   └── App.jsx
+│       └── App.module.css
+├── hooks/
+│   └── useModal.js
+├── pages/
+│   ├── ForgotPassword/
+│   │   ├── ForgotPassword.jsx
+│   │   └── ForgotPassword.module.css
+│   ├── Home/
+│   │   ├── Home.jsx
+│   │   └── Home.module.css
+│   ├── IngredientDetailsPage/
+│   │   ├── IngredientDetailsPage.jsx
+│   │   └── IngredientDetailsPage.module.css
+│   ├── LoginPage/
+│   │   ├── LoginPage.jsx
+│   │   └── LoginPage.module.css
+│   ├── NotFoundPage/
+│   │   ├── NotFoundPage.jsx
+│   │   └── NotFoundPage.module.css
+│   ├── RegisterPage/
+│   │   ├── RegisterPage.jsx
+│   │   └── RegisterPage.module.css
+│   └── ResetPassword/
+│       ├── ResetPassword.jsx
+│       └── ResetPassword.module.css
+├── services/
+│   ├── actions/
+│   │   ├── currentIngredientActions.js
+│   │   ├── ingredientsActions.js
+│   │   ├── orderActions.js
+│   │   └── passwordActions.js
+│   ├── reducers/
+│   │   ├── currentIngredientReducer.js
+│   │   ├── ingredientsReducer.js
+│   │   ├── orderReducer.js
+│   │   └── passwordReducer.js
+│   ├── store.js
+│   └── types.js
+├── utils/
+│   ├── checkResponse.js
+│   ├── const.js
+│   └── request.js
+└── index.js
+```
 
-## Available Scripts
+* components/: Содержит компоненты, используемые в приложении.
 
-In the project directory, you can run:
+* AppHeader/: Компонент заголовка приложения.
+* BurgerIngredients/: Компонент для отображения ингредиентов бургера и их деталей.
+* Modal/: Компонент модального окна.
+* Profile/: Компонент профиля пользователя.
+* App.jsx: Основной компонент приложения.
+* hooks/: Содержит кастомные хуки.
 
-### `npm start`
+* useModal.js: Кастомный хук для управления состоянием модального окна.
+* pages/: Содержит страницы приложения.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* ForgotPassword/: Страница восстановления пароля.
+* Home/: Главная страница.
+* IngredientDetailsPage/: Страница деталей ингредиента.
+* LoginPage/: Страница входа.
+* NotFoundPage/: Страница ошибки 404.
+* RegisterPage/: Страница регистрации.
+* ResetPassword/: Страница сброса пароля.
+* services/: Содержит Redux-акции, редьюсеры и конфигурацию магазина.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* actions/: Содержит файлы с определением экшенов.
+* reducers/: Содержит файлы с определением редьюсеров.
+* store.js: Конфигурация Redux-хранилища.
+* types.js: Содержит типы экшенов.
+* utils/: Содержит утилиты.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+* checkResponse.js: Утилита для проверки ответа сервера.
+* const.js: Содержит константы.
+* request.js: Утилита для выполнения HTTP-запросов.
+* index.js: Входная точка приложения.

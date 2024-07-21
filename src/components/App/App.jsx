@@ -5,10 +5,17 @@ import { fetchIngredients } from '../../services/actions/ingredientsActions';
 import { clearCurrentIngredient } from '../../services/actions/currentIngredientActions';
 import { useModal } from '../../hooks/useModal';
 import AppHeader from '../AppHeader/AppHeader';
-import Home from '../../pages/Home';
-import IngredientDetailsPage from '../../pages/IngredientDetailsPage';
+import Home from '../../pages/Home/Home';
+import IngredientDetailsPage from '../../pages/IngredientDetailsPage/IngredientDetailsPage';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../BurgerIngredients/IngredientDetails/IngredientDetails';
+import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
+import RegisterPage from '../../pages/RegisterPage/RegisterPage';
+import LoginPage from '../../pages/LoginPage/LoginPage';
+import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
+import ResetPassword from '../../pages/ResetPassword/ResetPassword'; 
+import Profile from '../../pages/Profile/Profile';  
+
 import styles from './App.module.css';
 
 const App = () => {
@@ -48,12 +55,19 @@ const App = () => {
           <Routes location={background || location}>
             <Route path="/" element={<Home />} />
             <Route path="/ingredients/:id" element={<IngredientDetailsPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} /> 
+            <Route path="/reset-password" element={<ResetPassword />} />  
+            <Route path="/profile/*" element={<Profile />} />  
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
 
           {/* background: Проверяет, был ли сохранен маршрутный фон в состоянии при навигации.  
               isModalOpen: Проверяет, открыто ли модальное окно
               модальное окно с деталями ингредиента будет отображаться только в том случае, 
-              если был переход с состоянием background и состояние модального окна isModalOpen истинно.
+              если был переход с состоянием background и состояние модального окна isModalOpen истинно,
+              то рендерится этот блок
           */}
           {background && isModalOpen && (
             <Routes>

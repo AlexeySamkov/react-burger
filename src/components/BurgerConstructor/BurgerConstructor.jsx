@@ -8,12 +8,15 @@ import { useModal } from './../../hooks/useModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { placeOrder } from '../../services/actions/orderActions';
 import { useDrop } from 'react-dnd';
+import { useNavigate } from 'react-router-dom';
 import { removeIngredientFromConstructor, updateIngredientOrder } from '../../services/actions/ingredientConstructorActions';
 import DraggableIngredient from './DraggableIngredient/DraggableIngredient';
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { constructorIngredients, order } = useSelector(state => state.ingredients);
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   const topBun = constructorIngredients.find(ingredient => ingredient.type === "bun" && ingredient.position === "top");
   const bottomBun = constructorIngredients.find(ingredient => ingredient.type === "bun" && ingredient.position === "bottom");
@@ -35,13 +38,17 @@ const BurgerConstructor = () => {
   }, [dispatch]);
 
   const handlePlaceOrder = () => {
-    const ingredientIds = constructorIngredients.map(ingredient => ingredient._id);
-    dispatch(placeOrder(ingredientIds));
-    openModal();
+    if (!isAuthenticated) {
+      navigate('/login');
+    } else {
+      const ingredientIds = constructorIngredients.map(ingredient => ingredient._id);
+      dispatch(placeOrder(ingredientIds));
+      openModal();
+    }
   };
 
   // гарантирует, что сумма будет пересчитываться только тогда, когда изменяется constructorIngredients
-  // оптимизированное вычисление суммы заказа, предотвращая ненужные рендеры компонента BurgerConstructor.
+  // оптимизированное вычисление суммы заказа, предотвращая ненужные рендеры компонента BurgerConstructor.																																													
   const total = useMemo(() => {
     return constructorIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0);
   }, [constructorIngredients]);
@@ -87,18 +94,17 @@ const BurgerConstructor = () => {
               />
             )}
           </div>
-          </>
+        </>
       )}
       <div className={styles.orderSection}>
-      <div className={styles.totalPrice}>
-        <p>{total}</p>
-        <CurrencyIcon type="primary" />
+        <div className={styles.totalPrice}>
+          <p>{total}</p>
+          <CurrencyIcon type="primary" />
+        </div>
+        <Button htmlType="button" type="primary" size="medium" onClick={handlePlaceOrder} disabled={!(topBun && bottomBun)}>
+          Оформить заказ
+        </Button>
       </div>
-      <Button htmlType="button" type="primary" size="medium" onClick={handlePlaceOrder} disabled={!(topBun && bottomBun)}>
-        Оформить заказ
-      </Button>
-    </div>
-
       {isModalOpen && (
         <Modal header="Ваш заказ" onClose={closeModal}>
           <OrderDetails order={order} />
