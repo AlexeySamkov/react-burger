@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, Route, Routes } from 'react-router-dom';
+import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getUser, updateUser } from '../../services/actions/userActions';
+import { logout } from '../../services/actions/authActions';
 import styles from './Profile.module.css';
 
 const Profile = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const user = useSelector(state => state.auth.user);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -35,6 +37,11 @@ const Profile = () => {
         dispatch(updateUser({ name, email, password }));
     };
 
+    const handleLogout = async (e) => {
+        e.preventDefault();
+        dispatch(logout());
+        navigate('/login');
+    };
 
     useEffect(() => {
         dispatch(getUser());
@@ -49,7 +56,11 @@ const Profile = () => {
                 <NavLink className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link} to="/profile/order-history">
                     История заказов
                 </NavLink>
-                <NavLink className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link} to="/login">
+                <NavLink 
+                    className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link}
+                    to="/login"
+                    onClick={handleLogout}
+                >
                     Выход
                 </NavLink>
             </div>

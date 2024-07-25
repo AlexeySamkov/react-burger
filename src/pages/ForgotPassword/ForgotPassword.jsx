@@ -1,9 +1,23 @@
-import styles from './ForgotPassword.module.css';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import styles from './ForgotPassword.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { resetPassword } from '../../services/actions/passwordActions';
 
 const ForgotPassword = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+    };
+
+    const handleResetPassword = async () => {
+        dispatch(resetPassword(email));
+        navigate('/reset-password');
+    };
 
     const handleLogin = () => {
         navigate('/login');
@@ -18,11 +32,14 @@ const ForgotPassword = () => {
                     name="email"
                     size="default"
                     placeholder="укажите e-mail"
+                    autoComplete="off"
+                    value={email}
+                    onChange={handleEmailChange}
                 />
             </div>
           
             <div className={styles.inputWrapper}>
-                <Button htmlType="button" type="primary" size="small" extraClass="ml-2">
+                <Button htmlType="button" type="primary" size="small" extraClass="ml-2" onClick={handleResetPassword}>
                     Восстановить
                 </Button>
             </div>

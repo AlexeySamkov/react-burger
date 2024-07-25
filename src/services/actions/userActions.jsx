@@ -7,7 +7,7 @@ export const UPDATE_USER_FAILED = 'UPDATE_USER_FAILED';
 export const getUser = () => {
   return async (dispatch) => {
     try {
-      console.log("accessToken="+ localStorage.getItem('accessToken'));
+      //console.log("accessToken="+ localStorage.getItem('accessToken'));
       const options = {
         method: 'GET',
         headers: {

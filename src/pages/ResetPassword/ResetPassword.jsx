@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
-import styles from './ResetPassword.module.css';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import styles from './ResetPassword.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { resetPasswordConfirm } from '../../services/actions/passwordActions';
 
 const ResetPassword = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    
-    // Создаем состояние для каждого поля ввода
     const [password, setPassword] = useState('');
-    const [codeFromEmail, setCodeFromEmail] = useState('');
+    const [token, setToken] = useState('');
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
     };
 
-    const handleCodeChange = (e) => {
-        setCodeFromEmail(e.target.value);
+    const handleTokenChange = (e) => {
+        setToken(e.target.value);
+    };
+
+    const handleResetPassword = async () => {
+     dispatch(resetPasswordConfirm(password, token));
+        navigate('/login');
     };
 
     const handleLogin = () => {
@@ -32,25 +38,25 @@ const ResetPassword = () => {
                     size="default"
                     placeholder="Введите новый пароль"
                     icon="ShowIcon"
+                    autoComplete="new-password"
                     value={password}
                     onChange={handlePasswordChange}
-                    autoComplete="off"
                 />
             </div>
             <div className={styles.inputWrapper}>
                 <Input
                     type="text"
-                    name="codeFromEmail"
+                    name="token"
                     size="default"
                     placeholder="Введите код из письма"
-                    value={codeFromEmail}
-                    onChange={handleCodeChange}
                     autoComplete="off"
+                    value={token}
+                    onChange={handleTokenChange}
                 />
             </div>
 
             <div className={styles.inputWrapper}>
-                <Button htmlType="button" type="primary" size="small" extraClass="ml-2">
+                <Button htmlType="button" type="primary" size="small" extraClass="ml-2" onClick={handleResetPassword}>
                     Сохранить
                 </Button>
             </div>
