@@ -51,11 +51,15 @@ export const login = (email, password) => {
       });
       localStorage.setItem('accessToken', res.accessToken.split('Bearer ')[1]);
       localStorage.setItem('refreshToken', res.refreshToken);
+      console.log('Успешно вошли:', res.user.name);
+      console.log('Email:', res.user.email);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.user
       });
     } catch (error) {
+      console.log('Login failed:', error.message);
+      alert('Login failed:', error.message)
       dispatch({
         type: LOGIN_FAILED,
         error: `Произошла ошибка: ${error.message}`
@@ -75,12 +79,14 @@ export const logout = () => {
         },
         body: JSON.stringify({ token: refreshToken })
       });
+      console.log('Успешно вышли');
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
       dispatch({
         type: LOGOUT_SUCCESS
       });
     } catch (error) {
+      console.log('Logout failed:', error.message);
       dispatch({
         type: LOGOUT_FAILED,
         error: `Произошла ошибка: ${error.message}`

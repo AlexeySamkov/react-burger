@@ -37,7 +37,7 @@ const ForgotPassword = () => {
                     onChange={handleEmailChange}
                 />
             </div>
-          
+
             <div className={styles.inputWrapper}>
                 <Button htmlType="button" type="primary" size="small" extraClass="ml-2" onClick={handleResetPassword}>
                     Восстановить

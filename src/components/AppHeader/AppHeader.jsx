@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import stylesAppHeader from "./AppHeader.module.css";
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
 
 const AppHeader = () => {
 
@@ -10,9 +9,6 @@ const AppHeader = () => {
     const [isBurgerHovered, setIsBurgerHovered] = useState(false);
     const [isListHovered, setIsListHovered] = useState(false);
     const [isProfileHovered, setIsProfileHovered] = useState(false);
-    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-
-    
 
     return (
         <header className={stylesAppHeader.header}>
@@ -48,7 +44,7 @@ const AppHeader = () => {
 
             <div className={stylesAppHeader.rightsection}>
                 <Link
-                    to={isAuthenticated ? "/profile" : "/login"}
+                    to={"/profile"}
                     className={stylesAppHeader.link}
                     onMouseEnter={() => setIsProfileHovered(true)}
                     onMouseLeave={() => setIsProfileHovered(false)}

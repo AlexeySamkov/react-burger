@@ -13,8 +13,9 @@ import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 import RegisterPage from '../../pages/RegisterPage/RegisterPage';
 import LoginPage from '../../pages/LoginPage/LoginPage';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
-import ResetPassword from '../../pages/ResetPassword/ResetPassword'; 
-import Profile from '../../pages/Profile/Profile';  
+import ResetPassword from '../../pages/ResetPassword/ResetPassword';
+import Profile from '../../pages/Profile/Profile';
+import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElement';
 
 import styles from './App.module.css';
 
@@ -57,9 +58,9 @@ const App = () => {
             <Route path="/ingredients/:id" element={<IngredientDetailsPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} /> 
-            <Route path="/reset-password" element={<ResetPassword />} />  
-            <Route path="/profile/*" element={<Profile />} />  
+            <Route path="/forgot-password" element={<ProtectedRouteElement element={<ForgotPassword />} />} />
+            <Route path="/reset-password" element={<ProtectedRouteElement element={<ResetPassword />} />} />
+            <Route path="/profile/*" element={<ProtectedRouteElement element={<Profile />} />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
 

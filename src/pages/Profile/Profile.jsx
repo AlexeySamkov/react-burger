@@ -56,7 +56,7 @@ const Profile = () => {
                 <NavLink className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link} to="/profile/order-history">
                     История заказов
                 </NavLink>
-                <NavLink 
+                <NavLink
                     className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link}
                     to="/login"
                     onClick={handleLogout}
@@ -80,7 +80,7 @@ const ProfileContent = ({ name, email, password, onNameChange, onEmailChange, on
             <Input type="text" name="name" size="default" placeholder="Имя" value={name} onChange={onNameChange} />
             <Input type="text" name="email" size="default" placeholder="Логин" value={email} onChange={onEmailChange} />
             <Input type="password" name="password" size="default" placeholder="Пароль" value={password} onChange={onPasswordChange} />
-        </div>        
+        </div>
         <Button htmlType="button" type="primary" size="small" onClick={onSave}>
             Сохранить
         </Button>
