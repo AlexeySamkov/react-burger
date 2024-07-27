@@ -3,7 +3,7 @@ import {
     GET_USER_FAILED,
     UPDATE_USER_SUCCESS,
     UPDATE_USER_FAILED
-  } from '../actions/userActions';
+  } from '../actions/actions';
   
   const initialState = {
     error: null

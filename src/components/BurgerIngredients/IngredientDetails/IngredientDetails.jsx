@@ -1,8 +1,11 @@
 import React from 'react';
 import styles from './IngredientDetails.module.css';
-import { ingredientsShape } from './../../../utils/types';
+// import { ingredientsShape } from './../../../utils/types';
 
 const IngredientDetails = ({ currentIngredient }) => {
+    if (!currentIngredient) {
+        return <p>Загрузка...</p>;
+      }      
     return (
         <div className={styles.modalContent}>
             <img src={currentIngredient.image_large} alt={currentIngredient.name} className={styles.modalImage} />
@@ -26,9 +29,9 @@ const IngredientDetails = ({ currentIngredient }) => {
 };
 
 // проверяю типы 
-IngredientDetails.propTypes = {
-    currentIngredient: ingredientsShape.isRequired
-};
+// IngredientDetails.propTypes = {
+//     currentIngredient: ingredientsShape.isRequired
+// };
 
 
 

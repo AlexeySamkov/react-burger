@@ -1,40 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getUser, updateUser } from '../../services/actions/userActions';
 import { logout } from '../../services/actions/authActions';
 import styles from './Profile.module.css';
+import useForm from '../../hooks/useForm';
 
 const Profile = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector(state => state.auth.user);
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const { values, handleChange, setValues } = useForm({ name: '', email: '', password: '' });
 
     useEffect(() => {
         if (user) {
-            setName(user.name);
-            setEmail(user.email);
+            setValues({ name: user.name, email: user.email, password: '' });
         }
-    }, [user]);
+    }, [user, setValues]);
 
-    const handleNameChange = (e) => {
-        setName(e.target.value);
-    };
-
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    };
-
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
-    };
-
-    const handleSave = () => {
-        dispatch(updateUser({ name, email, password }));
+    const handleSave = (e) => {
+        e.preventDefault();
+        dispatch(updateUser({ name: values.name, email: values.email, password: values.password }));
     };
 
     const handleLogout = async (e) => {
@@ -66,7 +53,7 @@ const Profile = () => {
             </div>
             <div className={styles.content}>
                 <Routes>
-                    <Route path="/" element={<ProfileContent name={name} email={email} password={password} onNameChange={handleNameChange} onEmailChange={handleEmailChange} onPasswordChange={handlePasswordChange} onSave={handleSave} />} />
+                    <Route path="/" element={<ProfileContent values={values} handleChange={handleChange} onSave={handleSave} />} />
                     <Route path="order-history" element={<OrderHistory />} />
                 </Routes>
             </div>
@@ -74,17 +61,17 @@ const Profile = () => {
     );
 };
 
-const ProfileContent = ({ name, email, password, onNameChange, onEmailChange, onPasswordChange, onSave }) => (
-    <>
+const ProfileContent = ({ values, handleChange, onSave }) => (
+    <form onSubmit={onSave}>
         <div className={styles.inputs}>
-            <Input type="text" name="name" size="default" placeholder="Имя" value={name} onChange={onNameChange} />
-            <Input type="text" name="email" size="default" placeholder="Логин" value={email} onChange={onEmailChange} />
-            <Input type="password" name="password" size="default" placeholder="Пароль" value={password} onChange={onPasswordChange} />
+            <Input type="text" name="name" size="default" placeholder="Имя" value={values.name} onChange={handleChange} />
+            <Input type="text" name="email" size="default" placeholder="Логин" value={values.email} onChange={handleChange} />
+            <Input type="password" name="password" size="default" placeholder="Пароль" value={values.password} onChange={handleChange} />
         </div>
-        <Button htmlType="button" type="primary" size="small" onClick={onSave}>
+        <Button htmlType="submit" type="primary" size="small">
             Сохранить
         </Button>
-    </>
+    </form>
 );
 
 const OrderHistory = () => (

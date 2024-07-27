@@ -3,7 +3,7 @@ import {
     PASSWORD_RESET_FAILED,
     PASSWORD_RESET_CONFIRM_SUCCESS,
     PASSWORD_RESET_CONFIRM_FAILED
-  } from '../actions/passwordActions';
+  } from '../actions/actions';
   
   const initialState = {
     message: null,

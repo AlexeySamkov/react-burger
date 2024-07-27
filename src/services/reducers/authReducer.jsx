@@ -4,9 +4,10 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILED,
   LOGOUT_SUCCESS,
-  LOGOUT_FAILED
-
-} from '../actions/authActions';
+  LOGOUT_FAILED,
+  GET_USER_SUCCESS,
+  GET_USER_FAILED
+} from '../actions/actions';
 
 const initialState = {
   user: null,
@@ -17,28 +18,20 @@ const initialState = {
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case REGISTER_SUCCESS:
+    case LOGIN_SUCCESS:
+    case GET_USER_SUCCESS:
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.user,
         isAuthenticated: true,
         error: null
       };
     case REGISTER_FAILED:
-      return {
-        ...state,
-        error: action.error
-      };
-    case LOGIN_SUCCESS:
-      return {
-        ...state,
-        user: action.payload,
-        isAuthenticated: true,
-        error: null
-      };
     case LOGIN_FAILED:
+    case GET_USER_FAILED:
       return {
         ...state,
-        error: action.error
+        error: action.payload
       };
     case LOGOUT_SUCCESS:
       return {
@@ -50,7 +43,7 @@ export const authReducer = (state = initialState, action) => {
     case LOGOUT_FAILED:
       return {
         ...state,
-        error: action.error
+        error: action.payload
       };
     default:
       return state;
