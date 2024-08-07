@@ -2,8 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './OrderDetails.module.css';
 import iconDone from '../../../images/graphicsiconDone.svg';
+import { IOrder } from '../../../utils/types';
 
-const OrderDetails = ({ order }) => {
+interface IOrderDetailsProps {
+    order: IOrder | null;
+  }
+
+  const OrderDetails: React.FC<IOrderDetailsProps> = ({ order }) => {
     return (
         <div className={styles.orderDetails}>
             <div className={styles.orderNumber}>{order ? order.number : '...'}</div>

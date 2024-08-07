@@ -17,13 +17,16 @@ import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
 import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElement';
 import { getUser } from '../../services/actions/userActions'; 
+import { IIngredient } from '../../utils/types';
 
 import styles from './App.module.css';
 
-const App = () => {
-  const dispatch = useDispatch();
-  const { loading, error, ingredients, currentIngredient  } = useSelector((state) => state.ingredients);
-  const { isAuthenticated } = useSelector((state) => state.auth);
+
+
+const App: React.FC = () => {
+  const dispatch: any = useDispatch();
+  const { loading, error, ingredients, currentIngredient  } = useSelector((state: any) => state.ingredients);
+  const { isAuthenticated } = useSelector((state: any) => state.auth);
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
@@ -51,7 +54,8 @@ const App = () => {
   useEffect(() => {
     if (isModalOpen && !loading && location.pathname.startsWith('/ingredients/') && !currentIngredient) {
       const ingredientId = location.pathname.split('/').pop();
-      const ingredient = ingredients.find(item => item._id === ingredientId);      
+      const ingredient = ingredients.find((item: IIngredient) => item._id === ingredientId); 
+           
       if (ingredient) {                
         dispatch(setCurrentIngredient(ingredient));
       }
@@ -103,7 +107,7 @@ const App = () => {
                      Компонент, отображающий детали ингредиента. Он получает текущий ингредиент из состояния 
                      ingredients на основе ID в URL.  pop() для извлечения последнего сегмента из пути URL                    
                     */}
-                    <IngredientDetails currentIngredient={ingredients.find(item => item._id === location.pathname.split('/').pop())} />
+                    <IngredientDetails currentIngredient={ingredients.find((item: IIngredient) => item._id === location.pathname.split('/').pop()) || null} />
                   </Modal>
                 }
               />

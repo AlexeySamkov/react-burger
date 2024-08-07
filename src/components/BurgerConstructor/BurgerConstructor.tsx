@@ -2,25 +2,26 @@ import { useMemo, useCallback } from 'react';
 import styles from './BurgerConstructor.module.css';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
-import Modal from './../Modal/Modal';
+import Modal from '../Modal/Modal';
 import OrderDetails from './OrderDetails/OrderDetails';
-import { useModal } from './../../hooks/useModal';
+import { useModal } from '../../hooks/useModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { placeOrder } from '../../services/actions/orderActions';
 import { useDrop } from 'react-dnd';
 import { useNavigate } from 'react-router-dom';
 import { removeIngredientFromConstructor, updateIngredientOrder } from '../../services/actions/ingredientConstructorActions';
 import DraggableIngredient from './DraggableIngredient/DraggableIngredient';
+import { IIngredient } from '../../utils/types';
 
 const BurgerConstructor = () => {
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
   const navigate = useNavigate();
-  const { constructorIngredients, order } = useSelector(state => state.ingredients);
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const { constructorIngredients, order } = useSelector((state :any) => state.ingredients);
+  const isAuthenticated = useSelector((state:any) => state.auth.isAuthenticated);
 
-  const topBun = constructorIngredients.find(ingredient => ingredient.type === "bun" && ingredient.position === "top");
-  const bottomBun = constructorIngredients.find(ingredient => ingredient.type === "bun" && ingredient.position === "bottom");
-  const nonBunIngredients = constructorIngredients.filter(ingredient => ingredient.type !== "bun");
+  const topBun = constructorIngredients.find((ingredient: IIngredient) => ingredient.type === "bun" && ingredient.position === "top");
+  const bottomBun = constructorIngredients.find((ingredient: IIngredient) => ingredient.type === "bun" && ingredient.position === "bottom");
+  const nonBunIngredients = constructorIngredients.filter((ingredient: IIngredient) => ingredient.type !== "bun");
 
   const { isModalOpen, openModal, closeModal } = useModal();
 
@@ -29,11 +30,11 @@ const BurgerConstructor = () => {
     drop: () => ({ name: 'BurgerConstructor' }),
   });
 
-  const handleRemoveIngredient = (uniqueId) => {
+  const handleRemoveIngredient = (uniqueId :string) => {
     dispatch(removeIngredientFromConstructor(uniqueId));
   };
 
-  const moveIngredient = useCallback((dragIndex, hoverIndex) => {
+  const moveIngredient = useCallback((dragIndex: number, hoverIndex: number) => {
     dispatch(updateIngredientOrder(dragIndex, hoverIndex));
   }, [dispatch]);
 
@@ -41,7 +42,7 @@ const BurgerConstructor = () => {
     if (!isAuthenticated) {
       navigate('/login');
     } else {
-      const ingredientIds = constructorIngredients.map(ingredient => ingredient._id);
+      const ingredientIds = constructorIngredients.map((ingredient: IIngredient) => ingredient._id);
       dispatch(placeOrder(ingredientIds));
       openModal();
     }
@@ -50,7 +51,7 @@ const BurgerConstructor = () => {
   // гарантирует, что сумма будет пересчитываться только тогда, когда изменяется constructorIngredients
   // оптимизированное вычисление суммы заказа, предотвращая ненужные рендеры компонента BurgerConstructor.																																													
   const total = useMemo(() => {
-    return constructorIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0);
+    return constructorIngredients.reduce((sum: number, ingredient: IIngredient) => sum + ingredient.price, 0);
   }, [constructorIngredients]);
 
   return (
@@ -73,7 +74,7 @@ const BurgerConstructor = () => {
             )}
           </div>
           <div className={styles.container}>
-            {nonBunIngredients.map((ingredient, index) => (
+            {nonBunIngredients.map((ingredient: IIngredient & { uniqueId: string }, index: number) => (
               <DraggableIngredient
                 key={ingredient.uniqueId}
                 index={index}
