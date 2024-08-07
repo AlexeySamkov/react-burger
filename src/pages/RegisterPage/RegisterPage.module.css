@@ -1,0 +1,16 @@
+.section {
+    width: 100%;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .inputWrapper {
+    margin-bottom: 20px;
+  }
+
+  .othWrapper {
+    margin-top: 70px; 
+  }

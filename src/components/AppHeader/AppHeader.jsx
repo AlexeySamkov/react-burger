@@ -1,8 +1,7 @@
-
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import stylesAppHeader from "./AppHeader.module.css";
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useState } from 'react';
 
 const AppHeader = () => {
 
@@ -11,13 +10,12 @@ const AppHeader = () => {
     const [isListHovered, setIsListHovered] = useState(false);
     const [isProfileHovered, setIsProfileHovered] = useState(false);
 
-
     return (
         <header className={stylesAppHeader.header}>
             <div className={stylesAppHeader.section}>
                 <Link
                     className={stylesAppHeader.link}
-                    to="/constructor"
+                    to="/"
                     onMouseEnter={() => setIsBurgerHovered(true)} // Устанавливаем isHovered в true, когда мышь наводится на элемент
                     onMouseLeave={() => setIsBurgerHovered(false)} // Устанавливаем isHovered в false, когда мышь покидает элемент
                 >
@@ -46,8 +44,8 @@ const AppHeader = () => {
 
             <div className={stylesAppHeader.rightsection}>
                 <Link
+                    to={"/profile"}
                     className={stylesAppHeader.link}
-                    to="/orders"
                     onMouseEnter={() => setIsProfileHovered(true)}
                     onMouseLeave={() => setIsProfileHovered(false)}
                 >

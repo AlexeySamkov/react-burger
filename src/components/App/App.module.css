@@ -1,9 +1,9 @@
 .App {
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: top;
+  align-items: top; */
   font-family: 'JetBrains Mono', monospace;
-
+  height: 80vh; 
 }
 
 
