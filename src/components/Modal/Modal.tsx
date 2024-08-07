@@ -4,10 +4,16 @@ import styles from './Modal.module.css'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from "./ModalOverlay/ModalOverlay";
 
+interface ModalProps {
+  children: React.ReactNode;
+  onClose: () => void;
+  header?: string;
+}
 
-const Modal = ({ children, onClose, header }) => {
+const Modal: React.FC<ModalProps> = ({ children, onClose, header }) => {
+
   useEffect(() => {
-    function onKeyDown(event) {
+    function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
         onClose();
       }
@@ -19,6 +25,7 @@ const Modal = ({ children, onClose, header }) => {
   }, [onClose]);
 
   const targetModal = document.querySelector("#modal")
+  if (!targetModal) return null;
 
   return ReactDOM.createPortal(
     <div className={styles.modalBox}>

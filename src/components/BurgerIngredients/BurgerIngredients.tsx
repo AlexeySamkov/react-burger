@@ -5,20 +5,21 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentIngredient } from '../../services/actions/currentIngredientActions';
 import BurgerParts from './BurgerParts/BurgerParts';
+import { IIngredient } from '../../utils/types';
 
 
-const BurgerIngredients = () => {
-    const [current, setCurrent] = useState('bun');
-    const dispatch = useDispatch();
-    const { ingredients } = useSelector(state => state.ingredients);
+const BurgerIngredients: React.FC = () => {
+    const [current, setCurrent] = useState<string>('bun');
+    const dispatch: any = useDispatch();
+    const { ingredients } = useSelector((state: any) => state.ingredients);
     const navigate = useNavigate();
     const location = useLocation();
-    const containerRef = useRef(null);
-    const bunRef = useRef(null);
-    const sauceRef = useRef(null);
-    const mainRef = useRef(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const bunRef = useRef<HTMLDivElement>(null);
+    const sauceRef = useRef<HTMLDivElement>(null);
+    const mainRef = useRef<HTMLDivElement>(null);
 
-    const handleIngredientClick = (item) => {
+    const handleIngredientClick = (item: IIngredient) => {
         dispatch(setCurrentIngredient(item));
         navigate(`/ingredients/${item._id}`, { state: { background: location } });
     };
@@ -26,6 +27,8 @@ const BurgerIngredients = () => {
     // Это объект состояния, который будет передан вместе с навигацией. Он используется для передачи дополнительной информации в новый маршрут.
     // В данном случае, передается состояние с ключом background, значение которого равно текущему объекту location.
     const handleScroll = () => {
+        if (!containerRef.current || !bunRef.current || !sauceRef.current || !mainRef.current) return;
+
         const containerTop = containerRef.current.getBoundingClientRect().top;
         const bunTop = bunRef.current.getBoundingClientRect().top;
         const sauceTop = sauceRef.current.getBoundingClientRect().top;
@@ -41,7 +44,6 @@ const BurgerIngredients = () => {
             setCurrent('main');
         }
     };
-
     // При монтировании компонента, useEffect    
     // Получает текущий элемент через containerRef.current.
     // Добавляет к этому элементу обработчик события scroll, который вызывает функцию handleScroll при прокрутке.
@@ -51,23 +53,25 @@ const BurgerIngredients = () => {
 
     useEffect(() => {
         const container = containerRef.current;
-        container.addEventListener('scroll', handleScroll);
-        return () => {
-            container.removeEventListener('scroll', handleScroll);
-        };
+        if (container) {
+            container.addEventListener('scroll', handleScroll);
+            return () => {
+                container.removeEventListener('scroll', handleScroll);
+            };
+        }
     }, []);
 
     return (
         <div className={styles.burgerIngredients}>
             <div className={styles.burgerHeader}>Соберите бургер</div>
             <div className={styles.burgerTabs}>
-                <Tab value="bun" active={current === 'bun'} onClick={() => bunRef.current.scrollIntoView({ behavior: 'smooth' })}>
+                <Tab value="bun" active={current === 'bun'} onClick={() => bunRef.current?.scrollIntoView({ behavior: 'smooth' })}>  {/*  Опциональная цепочка Если bunRef.current является null или undefined, то выражение завершится и вернет undefined, и метод scrollIntoView не будет вызван  */}
                     Булки
                 </Tab>
-                <Tab value="sauce" active={current === 'sauce'} onClick={() => sauceRef.current.scrollIntoView({ behavior: 'smooth' })}>
+                <Tab value="sauce" active={current === 'sauce'} onClick={() => sauceRef.current?.scrollIntoView({ behavior: 'smooth' })}>
                     Соусы
                 </Tab>
-                <Tab value="main" active={current === 'main'} onClick={() => mainRef.current.scrollIntoView({ behavior: 'smooth' })}>
+                <Tab value="main" active={current === 'main'} onClick={() => mainRef.current?.scrollIntoView({ behavior: 'smooth' })}>
                     Начинки
                 </Tab>
             </div>
@@ -75,7 +79,7 @@ const BurgerIngredients = () => {
                 <div ref={bunRef}>
                     <h2>Булки</h2>
                     <div className={styles.partsContainer}>
-                        {ingredients.filter(item => item.type === 'bun').map((item) => (
+                        {ingredients.filter((item: IIngredient) => item.type === 'bun').map((item: IIngredient & { counter: number }) => (
                             <BurgerParts key={item._id} item={item} handleOpenModal={handleIngredientClick} />
                         ))}
                     </div>
@@ -83,7 +87,7 @@ const BurgerIngredients = () => {
                 <div ref={sauceRef}>
                     <h2>Соусы</h2>
                     <div className={styles.partsContainer}>
-                        {ingredients.filter(item => item.type === 'sauce').map((item) => (
+                        {ingredients.filter((item: IIngredient) => item.type === 'sauce').map((item: IIngredient & { counter: number }) => (
                             <BurgerParts key={item._id} item={item} handleOpenModal={handleIngredientClick} />
                         ))}
                     </div>
@@ -91,7 +95,7 @@ const BurgerIngredients = () => {
                 <div ref={mainRef}>
                     <h2>Начинки</h2>
                     <div className={styles.partsContainer}>
-                        {ingredients.filter(item => item.type === 'main').map((item) => (
+                        {ingredients.filter((item: IIngredient) => item.type === 'main').map((item: IIngredient & { counter: number }) => (
                             <BurgerParts key={item._id} item={item} handleOpenModal={handleIngredientClick} />
                         ))}
                     </div>

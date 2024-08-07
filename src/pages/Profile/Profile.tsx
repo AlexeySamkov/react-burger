@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, FormEvent, ChangeEvent, MouseEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -6,11 +6,19 @@ import { getUser, updateUser } from '../../services/actions/userActions';
 import { logout } from '../../services/actions/authActions';
 import styles from './Profile.module.css';
 import useForm from '../../hooks/useForm';
+import { IProfileFormValues } from '../../utils/types'
 
-const Profile = () => {
-    const dispatch = useDispatch();
+
+interface IProfileContentProps {
+    values: IProfileFormValues;
+    handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    onSave: (e: FormEvent<HTMLFormElement>) => void;
+}
+
+const Profile: React.FC = () => {
+    const dispatch: any = useDispatch();
     const navigate = useNavigate();
-    const user = useSelector(state => state.auth.user);
+    const user = useSelector((state: any) => state.auth.user);
     const { values, handleChange, setValues } = useForm({ name: '', email: '', password: '' });
 
     useEffect(() => {
@@ -19,16 +27,17 @@ const Profile = () => {
         }
     }, [user, setValues]);
 
-    const handleSave = (e) => {
+    const handleSave = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(updateUser({ name: values.name, email: values.email, password: values.password }));
     };
 
-    const handleLogout = async (e) => {
+    const handleLogout = async (e: MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
-        dispatch(logout());
+        await dispatch(logout());
         navigate('/login');
     };
+
 
     useEffect(() => {
         dispatch(getUser());
@@ -43,11 +52,7 @@ const Profile = () => {
                 <NavLink className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link} to="/profile/order-history">
                     История заказов
                 </NavLink>
-                <NavLink
-                    className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link}
-                    to="/login"
-                    onClick={handleLogout}
-                >
+                <NavLink className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link} to="/login" onClick={handleLogout}>
                     Выход
                 </NavLink>
             </div>
@@ -61,7 +66,7 @@ const Profile = () => {
     );
 };
 
-const ProfileContent = ({ values, handleChange, onSave }) => (
+const ProfileContent: React.FC<IProfileContentProps> = ({ values, handleChange, onSave }) => (
     <form onSubmit={onSave}>
         <div className={styles.inputs}>
             <Input type="text" name="name" size="default" placeholder="Имя" value={values.name} onChange={handleChange} />

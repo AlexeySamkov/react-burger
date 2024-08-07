@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { FormEvent, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -6,15 +6,16 @@ import { login } from '../../services/actions/authActions';
 import styles from './LoginPage.module.css';
 import useForm from '../../hooks/useForm';
 
+
 const LoginPage = () => {
     const { values, handleChange } = useForm({ email: '', password: '' });
 
-    const dispatch = useDispatch();
+    const dispatch: any = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+    const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
 
-    const handleLogin = async (e) => {
+    const handleLogin = async (e: FormEvent) => {
         e.preventDefault();
         console.log('Попытка залогиниться с email:', values.email);
         try {

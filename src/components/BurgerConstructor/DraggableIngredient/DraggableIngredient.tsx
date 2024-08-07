@@ -2,11 +2,25 @@ import React from 'react';
 import { useDrop, useDrag } from 'react-dnd';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './DraggableIngredient.module.css';
+import { IIngredient } from '../../../utils/types';
 
+interface IDraggableIngredientProps {
+  ingredient: IIngredient & { uniqueId: string };
+  index: number;
+  moveIngredient: (dragIndex: number, hoverIndex: number) => void;
+  handleRemoveIngredient: (uniqueId: string) => void;
+}
 
-const DraggableIngredient = ({ ingredient, index, moveIngredient, handleRemoveIngredient }) => {
-    const ref = React.useRef(null);
-    const [, drop] = useDrop({
+interface IDragItem {
+  type: string;
+  uniqueId: string;
+  index: number;
+}
+
+const DraggableIngredient: React.FC<IDraggableIngredientProps> = ({ ingredient, index, moveIngredient, handleRemoveIngredient }) => {
+
+    const ref = React.useRef<HTMLDivElement>(null);
+    const [, drop] = useDrop<IDragItem>({
         accept: 'ingredient',
         hover(item, monitor) {
             if (!ref.current) {
@@ -20,6 +34,7 @@ const DraggableIngredient = ({ ingredient, index, moveIngredient, handleRemoveIn
             const hoverBoundingRect = ref.current.getBoundingClientRect();
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
             const clientOffset = monitor.getClientOffset();
+            if (clientOffset) {
             const hoverClientY = clientOffset.y - hoverBoundingRect.top;
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
                 return;
@@ -29,6 +44,7 @@ const DraggableIngredient = ({ ingredient, index, moveIngredient, handleRemoveIn
             }
             moveIngredient(dragIndex, hoverIndex);
             item.index = hoverIndex;
+        }
         },
     });
 

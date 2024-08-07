@@ -2,8 +2,14 @@ import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const ProtectedRouteElement = ({ element, anonymous = false }) => {
-    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+interface ProtectedRouteElementProps {
+    element: React.ReactElement;
+    anonymous?: boolean;
+  }
+  
+
+const ProtectedRouteElement: React.FC<ProtectedRouteElementProps> = ({ element, anonymous = false }) => {
+    const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
     const location = useLocation();
     const from = location.state?.from || '/';
 

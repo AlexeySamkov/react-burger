@@ -1,8 +1,13 @@
 import React from 'react';
 import styles from './IngredientDetails.module.css';
-// import { ingredientsShape } from './../../../utils/types';
+import { IIngredient } from '../../../utils/types';
 
-const IngredientDetails = ({ currentIngredient }) => {
+
+  interface IngredientDetailsProps {
+    currentIngredient: IIngredient | null;
+  }
+
+  const IngredientDetails: React.FC<IngredientDetailsProps> = ({ currentIngredient }) => {
     if (!currentIngredient) {
         return <p>Загрузка...</p>;
       }      
@@ -27,12 +32,6 @@ const IngredientDetails = ({ currentIngredient }) => {
         </div>
     )
 };
-
-// проверяю типы 
-// IngredientDetails.propTypes = {
-//     currentIngredient: ingredientsShape.isRequired
-// };
-
 
 
 export default IngredientDetails;    
