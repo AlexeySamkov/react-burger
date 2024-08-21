@@ -1,4 +1,4 @@
-export const getHeading = (type) => {
+export const getHeading = (type: string) => {
     switch (type) {
       case 'bun':
         return 'Булки';

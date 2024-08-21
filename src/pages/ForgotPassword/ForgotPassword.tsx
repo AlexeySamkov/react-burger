@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styles from './ForgotPassword.module.css';
@@ -7,11 +7,11 @@ import { resetPassword } from '../../services/actions/passwordActions';
 import useForm from '../../hooks/useForm';
 
 const ForgotPassword = () => {
-    const dispatch = useDispatch();
+    const dispatch: any = useDispatch();
     const navigate = useNavigate();
     const { values, handleChange } = useForm({ email: '' });
 
-    const handleResetPassword = async (e) => {
+    const handleResetPassword = async (e: FormEvent) => {
         e.preventDefault();
         dispatch(resetPassword(values.email));
         navigate('/reset-password');
