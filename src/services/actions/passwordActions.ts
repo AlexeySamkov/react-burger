@@ -4,9 +4,12 @@ import {
   , PASSWORD_RESET_FAILED
   , PASSWORD_RESET_CONFIRM_SUCCESS
   , PASSWORD_RESET_CONFIRM_FAILED
+  , TPasswordActions
 } from './actions'
-export const resetPassword = (email) => {
-  return async (dispatch) => {
+import { Dispatch } from 'redux';
+
+export const resetPassword = (email: string) => {
+  return async (dispatch: Dispatch<TPasswordActions>) => {
     try {
       const res = await request('/password-reset', {
         method: 'POST',
@@ -19,7 +22,7 @@ export const resetPassword = (email) => {
         type: PASSWORD_RESET_SUCCESS,
         message: res.message
       });
-    } catch (error) {
+    } catch (error: any) {
       dispatch({
         type: PASSWORD_RESET_FAILED,
         error: `Произошла ошибка: ${error.message}`
@@ -28,8 +31,8 @@ export const resetPassword = (email) => {
   };
 };
 
-export const resetPasswordConfirm = (password, token) => {
-  return async (dispatch) => {
+export const resetPasswordConfirm = (password: string, token: string) => {
+  return async (dispatch: Dispatch<TPasswordActions>) => {
     try {
       const res = await request('/password-reset/reset', {
         method: 'POST',
@@ -42,7 +45,7 @@ export const resetPasswordConfirm = (password, token) => {
         type: PASSWORD_RESET_CONFIRM_SUCCESS,
         message: res.message
       });
-    } catch (error) {
+    } catch (error: any) {
       dispatch({
         type: PASSWORD_RESET_CONFIRM_FAILED,
         error: `Произошла ошибка: ${error.message}`

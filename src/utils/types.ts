@@ -40,3 +40,29 @@ export interface IResetPasswordFormValues {
   password: string;
   token: string;
 }
+
+
+export interface IUser {
+  name: string;
+  email: string;
+}
+
+export interface IUserResponse {
+  success: boolean;
+  user: IUser;
+}
+
+export interface IErrorResponse {
+  message: string;
+}
+
+export interface IUpdateUserData {
+  name?: string;
+  email?: string;
+  password?: string;
+}
+
+export interface IIngredientsResponse {
+  success: boolean;
+  data: IIngredient[];
+}
