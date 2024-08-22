@@ -1,5 +1,5 @@
 import React, { FormEvent} from 'react';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../hooks/hooks';
 import { useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { register } from '../../services/actions/authActions';
@@ -8,7 +8,7 @@ import useForm from '../../hooks/useForm';
 
 const RegisterPage = () => {
     const { values, handleChange } = useForm({ name: '', email: '', password: '' });
-    const dispatch :any = useDispatch();
+    const dispatch = useAppDispatch(); // Используем типизированный dispatch
     const navigate = useNavigate();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {

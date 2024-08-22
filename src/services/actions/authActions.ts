@@ -6,7 +6,10 @@ import {
   , LOGIN_FAILED
   , LOGOUT_SUCCESS
   , LOGOUT_FAILED
+  , TAuthActions
 } from './actions'
+import { Dispatch } from 'redux';
+
 
 /**
  * Формат тела запроса регистрации:
@@ -16,8 +19,8 @@ import {
   "name": "" 
 }
  */
-export const register = (email, password, name) => {
-  return async (dispatch) => {
+export const register = (email: string, password: string, name: string) => {
+  return async (dispatch: Dispatch<TAuthActions>) => {
     try {
       const res = await request('/auth/register', {
         method: 'POST',
@@ -32,7 +35,7 @@ export const register = (email, password, name) => {
         type: REGISTER_SUCCESS,
         payload: res.user
       });
-    } catch (error) {
+    } catch (error: any) {
       dispatch({
         type: REGISTER_FAILED,
         error: `Произошла ошибка: ${error.message}`
@@ -41,8 +44,8 @@ export const register = (email, password, name) => {
   };
 };
 
-export const login = (email, password) => {
-  return async (dispatch) => {
+export const login = (email: string, password: string) => {
+  return async (dispatch: Dispatch<TAuthActions>) => {
     try {
       const res = await request('/auth/login', {
         method: 'POST',
@@ -59,9 +62,9 @@ export const login = (email, password) => {
         type: LOGIN_SUCCESS,
         payload: res.user
       });
-    } catch (error) {
+    } catch (error: any) {
       console.log('Login failed:', error.message);
-      alert('Login failed:', error.message)
+      alert('Login failed:' + error.message)
       dispatch({
         type: LOGIN_FAILED,
         error: `Произошла ошибка: ${error.message}`
@@ -71,7 +74,7 @@ export const login = (email, password) => {
 };
 
 export const logout = () => {
-  return async (dispatch) => {
+  return async (dispatch: Dispatch<TAuthActions>) => {
     try {
       const refreshToken = localStorage.getItem('refreshToken');
       await request('/auth/logout', {
@@ -87,7 +90,7 @@ export const logout = () => {
       dispatch({
         type: LOGOUT_SUCCESS
       });
-    } catch (error) {
+    } catch (error: any) {
       console.log('Logout failed:', error.message);
       dispatch({
         type: LOGOUT_FAILED,

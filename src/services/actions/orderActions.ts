@@ -3,14 +3,17 @@ import {
   PLACE_ORDER_SUCCESS,
   PLACE_ORDER_FAILED,
   REMOVE_ALL_INGREDIENTS_FROM_CONSTRUCTOR,
-  TOrderActions
+  TOrderActions, 
+  TConstructorActions, 
+  
 } from './actions';
 import {IIngredient} from '../../utils/types';
 import { Dispatch } from 'redux';
 
+type AppDispatch = Dispatch<TOrderActions | TConstructorActions>;
 
 export const placeOrder = (ingredients: IIngredient) => {
-  return async (dispatch: Dispatch<TOrderActions>) => {
+  return async (dispatch: AppDispatch) => {
     try {
       const res = await request('/orders', {
         method: 'POST',
@@ -29,7 +32,7 @@ export const placeOrder = (ingredients: IIngredient) => {
     } catch (error: any) {
       dispatch({
         type: PLACE_ORDER_FAILED,
-        error: `Произошла ошибка: ${error.message}`
+        payload: `Произошла ошибка: ${error.message}`
       });
     }
   };

@@ -1,5 +1,6 @@
 import React, { useEffect, FormEvent, ChangeEvent, MouseEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../../hooks/hooks';
 import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getUser, updateUser } from '../../services/actions/userActions';
@@ -16,7 +17,7 @@ interface IProfileContentProps {
 }
 
 const Profile: React.FC = () => {
-    const dispatch: any = useDispatch();
+    const dispatch = useAppDispatch(); // Используем типизированный dispatch
     const navigate = useNavigate();
     const user = useSelector((state: any) => state.auth.user);
     const { values, handleChange, setValues } = useForm({ name: '', email: '', password: '' });

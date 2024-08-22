@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../../hooks/hooks';
 import { fetchIngredients } from '../../services/actions/ingredientsActions';
 import { setCurrentIngredient, clearCurrentIngredient } from '../../services/actions/currentIngredientActions';
 import { useModal } from '../../hooks/useModal';
@@ -18,15 +19,16 @@ import Profile from '../../pages/Profile/Profile';
 import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElement';
 import { getUser } from '../../services/actions/userActions'; 
 import { IIngredient } from '../../utils/types';
+import type { RootState } from '../../services/store';
 
 import styles from './App.module.css';
 
 
 
 const App: React.FC = () => {
-  const dispatch: any = useDispatch();
-  const { loading, error, ingredients, currentIngredient  } = useSelector((state: any) => state.ingredients);
-  const { isAuthenticated } = useSelector((state: any) => state.auth);
+  const dispatch = useAppDispatch(); // Используем типизированный dispatch
+  const { loading, error, ingredients, currentIngredient  } = useSelector((state: RootState) => state.ingredients);
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;

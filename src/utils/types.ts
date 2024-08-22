@@ -12,7 +12,8 @@ export interface IIngredient {
   image_mobile: string;
   image_large: string;
   __v: number;
-  position?: 'top' | 'bottom'; 
+  position?: 'top' | 'bottom';
+  counter: number;
 }
 
 export interface IOrder {
@@ -62,7 +63,32 @@ export interface IUpdateUserData {
   password?: string;
 }
 
-export interface IIngredientsResponse {
+// export interface IIngredientsResponse {
+//   success: boolean;
+//   data: IIngredient[];
+// }
+
+
+export interface IAuthResponse {
   success: boolean;
-  data: IIngredient[];
+  accessToken: string;
+  refreshToken: string;
+  user: IUser;
 }
+
+
+export interface IngredientsState {
+  ingredients: IIngredient[];
+  groupTypes: { type: string; name: string }[];
+  currentIngredient: IIngredient | null;
+  constructorIngredients: (IIngredient & { uniqueId?: string; position?: 'top' | 'bottom' })[];
+  order: any; // IOrder; 
+  error: string | null;
+  loading: boolean;
+}
+
+// export interface IAction<T = any> {
+//   type: string;
+//   payload?: T;
+//   error?: string;
+// }

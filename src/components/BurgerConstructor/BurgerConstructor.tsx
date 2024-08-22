@@ -5,7 +5,8 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import Modal from '../Modal/Modal';
 import OrderDetails from './OrderDetails/OrderDetails';
 import { useModal } from '../../hooks/useModal';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../../hooks/hooks';
 import { placeOrder } from '../../services/actions/orderActions';
 import { useDrop } from 'react-dnd';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +15,7 @@ import DraggableIngredient from './DraggableIngredient/DraggableIngredient';
 import { IIngredient } from '../../utils/types';
 
 const BurgerConstructor = () => {
-  const dispatch: any = useDispatch();
+  const dispatch = useAppDispatch(); // Используем типизированный dispatch
   const navigate = useNavigate();
   const { constructorIngredients, order } = useSelector((state :any) => state.ingredients);
   const isAuthenticated = useSelector((state:any) => state.auth.isAuthenticated);

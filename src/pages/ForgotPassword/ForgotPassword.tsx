@@ -1,5 +1,5 @@
 import React, { FormEvent } from 'react';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../hooks/hooks';
 import { useNavigate } from 'react-router-dom';
 import styles from './ForgotPassword.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -7,7 +7,7 @@ import { resetPassword } from '../../services/actions/passwordActions';
 import useForm from '../../hooks/useForm';
 
 const ForgotPassword = () => {
-    const dispatch: any = useDispatch();
+    const dispatch = useAppDispatch(); // Используем типизированный dispatch
     const navigate = useNavigate();
     const { values, handleChange } = useForm({ email: '' });
 
