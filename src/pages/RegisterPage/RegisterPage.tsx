@@ -1,5 +1,5 @@
 import React, { FormEvent} from 'react';
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch } from '../../services/hooks';
 import { useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { register } from '../../services/actions/authActions';

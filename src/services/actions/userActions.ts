@@ -19,9 +19,10 @@ export const getUser = () => {
           'Content-Type': 'application/json;charset=utf-8',
           authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
-      };
+      };      
       const response = await fetchWithRefresh('/auth/user', options);
-      console.log('Успешно получен пользователь', response.user.name, 'c Email', response.user.email);
+      console.log('Успешно получен пользователь', response.user.name,
+         'c Email', response.user.email);
       // console.log('c Email', response.user.email);     
        dispatch({ type: GET_USER_SUCCESS, payload: response as IUserResponse });
      

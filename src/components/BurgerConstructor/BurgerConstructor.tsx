@@ -6,19 +6,20 @@ import Modal from '../Modal/Modal';
 import OrderDetails from './OrderDetails/OrderDetails';
 import { useModal } from '../../hooks/useModal';
 import { useSelector } from 'react-redux';
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch } from '../../services/hooks';
 import { placeOrder } from '../../services/actions/orderActions';
 import { useDrop } from 'react-dnd';
 import { useNavigate } from 'react-router-dom';
 import { removeIngredientFromConstructor, updateIngredientOrder } from '../../services/actions/ingredientConstructorActions';
 import DraggableIngredient from './DraggableIngredient/DraggableIngredient';
 import { IIngredient } from '../../utils/types';
+import { RootState } from '../../services/actions/actions'
 
 const BurgerConstructor = () => {
   const dispatch = useAppDispatch(); // Используем типизированный dispatch
   const navigate = useNavigate();
-  const { constructorIngredients, order } = useSelector((state :any) => state.ingredients);
-  const isAuthenticated = useSelector((state:any) => state.auth.isAuthenticated);
+  const { constructorIngredients, order } = useSelector((state :RootState) => state.ingredients);
+  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
 
   const topBun = constructorIngredients.find((ingredient: IIngredient) => ingredient.type === "bun" && ingredient.position === "top");
   const bottomBun = constructorIngredients.find((ingredient: IIngredient) => ingredient.type === "bun" && ingredient.position === "bottom");

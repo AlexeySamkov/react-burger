@@ -1,12 +1,12 @@
 import React, { FormEvent, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch } from '../../services/hooks';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { login } from '../../services/actions/authActions';
 import styles from './LoginPage.module.css';
 import useForm from '../../hooks/useForm';
-import type { RootState } from '../../services/store';
+import { RootState } from '../../services/actions/actions'
 
 
 const LoginPage = () => {
@@ -14,8 +14,8 @@ const LoginPage = () => {
 
     const dispatch = useAppDispatch(); // Используем типизированный dispatch
     const navigate = useNavigate();
-    const location = useLocation();
-    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+    const location = useLocation();    
+    const isAuthenticated = useSelector((state: RootState ) => state.auth.isAuthenticated);
 
     const handleLogin = async (e: FormEvent) => {
         e.preventDefault();

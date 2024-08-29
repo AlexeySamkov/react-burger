@@ -2,7 +2,8 @@ import {
     PASSWORD_RESET_SUCCESS,
     PASSWORD_RESET_FAILED,
     PASSWORD_RESET_CONFIRM_SUCCESS,
-    PASSWORD_RESET_CONFIRM_FAILED
+    PASSWORD_RESET_CONFIRM_FAILED,
+    TPasswordActions
   } from '../actions/actions';
   
   const initialState = {
@@ -10,7 +11,7 @@ import {
     error: null
   };
   
-  export const passwordReducer = (state = initialState, action) => {
+  export const passwordReducer = (state = initialState, action: TPasswordActions) => {
     switch (action.type) {
       case PASSWORD_RESET_SUCCESS:
         return {

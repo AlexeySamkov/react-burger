@@ -1,12 +1,14 @@
 import {
     IUserResponse,
     IErrorResponse,
-    IAuthResponse,
+    // IAuthResponse,
     IIngredient,
+    TResponseData,
+    IOrder
 } from '../../utils/types'
 import { ThunkAction } from 'redux-thunk';
-// import { Action, ActionCreator } from 'redux';
-import store from '../../services/store';
+import  store  from '../../services/store';
+// import { rootReducer } from '../reducers/rootReducer';
 
 
 // ITEMS ACTIONS 
@@ -40,9 +42,6 @@ export type TIngredientsActions =
   | ISetCurrentIngredientAction
   | IClearCurrentIngredientAction
   ;
-
-
-
 
 
 // INGREDIENTS ACTIONS 
@@ -89,10 +88,11 @@ export type TConstructorActions =
 // ORDER ACTIONS 
 export const PLACE_ORDER_SUCCESS = 'PLACE_ORDER_SUCCESS';
 export const PLACE_ORDER_FAILED = 'PLACE_ORDER_FAILED';
+export const RESET_ORDER_NUMBER = 'RESET_ORDER_NUMBER'
 
 interface IPlaceOrderSuccessAction {
     type: typeof PLACE_ORDER_SUCCESS;
-    payload: { order: number };
+    payload: IOrder;
 }
 
 interface IPlaceOrderFailedAction {
@@ -100,9 +100,15 @@ interface IPlaceOrderFailedAction {
     payload: string;
 }
 
+interface IResetOrderNumber {
+    type: typeof RESET_ORDER_NUMBER;
+    payload: string;
+}
+
 export type TOrderActions =
     | IPlaceOrderSuccessAction
-    | IPlaceOrderFailedAction;
+    | IPlaceOrderFailedAction
+    | IResetOrderNumber;
 
 // USER ACTIONS 
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
@@ -118,7 +124,7 @@ interface IGetUserSuccessAction {
 
 interface IGetUserFailedAction {
     type: typeof GET_USER_FAILED;
-    payload: IErrorResponse;
+    payload: string;
 }
 
 interface IUpdateUserSuccessAction {
@@ -180,22 +186,24 @@ export const LOGOUT_FAILED = 'LOGOUT_FAILED';
 
 interface IRegisterSuccessAction {
     type: typeof REGISTER_SUCCESS;
-    payload: IAuthResponse;
+    payload: string
 }
 
 interface IRegisterFailedAction {
     type: typeof REGISTER_FAILED;
-    error: string;
+    payload: string
 }
 
 interface ILoginSuccessAction {
     type: typeof LOGIN_SUCCESS;
-    payload: IAuthResponse;
+    payload: string;
 }
 
 interface ILoginFailedAction {
     type: typeof LOGIN_FAILED;
-    error: string;
+    payload: {
+        error: string;
+    };
 }
 
 interface ILogoutSuccessAction {
@@ -204,7 +212,7 @@ interface ILogoutSuccessAction {
 
 interface ILogoutFailedAction {
     type: typeof LOGOUT_FAILED;
-    error: string;
+    payload: string;
 }
 
 export type TAuthActions =
@@ -226,6 +234,8 @@ export type TAppActions =
     | TAuthActions;    
 
 export type RootState = ReturnType<typeof store.getState>;
+// export type RootState = ReturnType<typeof rootReducer>;
+export type AppDispatch = typeof store.dispatch;    
 
 export type AppThunk<ReturnType = void> = ThunkAction<
     ReturnType,
@@ -234,3 +244,62 @@ export type AppThunk<ReturnType = void> = ThunkAction<
     TAppActions
   >;    
 
+// WEBSOCKET ACTIONS 
+export const WS_CONNECT = 'WS_CONNECT';
+export const WS_DISCONNECT = 'WS_DISCONNECT';
+export const WS_CONNECT_SUCCESS = 'WS_CONNECT_SUCCESS';
+export const WS_CONNECT_ERROR = 'WS_CONNECT_ERROR';
+export const WS_RECEIVE_ORDERS = 'WS_RECEIVE_ORDERS';
+export const WS_GET_MESSAGE = 'WS_GET_MESSAGE';
+
+export type TWsActions = {
+    wsInit: typeof WS_CONNECT,
+    onOpen: typeof WS_CONNECT_SUCCESS,
+    onClose: typeof WS_DISCONNECT,
+    onError: typeof WS_CONNECT_ERROR,
+    onMessage: typeof WS_GET_MESSAGE,
+  }
+
+  
+  export interface IWsConnectAction {
+    type: typeof WS_CONNECT;
+    payload: any 
+}
+
+
+
+export interface IWsDisconnectAction {
+    type: typeof WS_DISCONNECT;
+    payload?: any;
+}
+
+export interface IWsConnectSuccessAction {
+    type: typeof WS_CONNECT_SUCCESS;
+    payload?: any;
+}
+
+export interface IWsConnectErrorAction {
+    type: typeof WS_CONNECT_ERROR;
+    payload?: any;
+}
+
+export interface IWsReceiveOrdersAction {
+    type: typeof WS_RECEIVE_ORDERS;
+    payload: any;  // пока any 
+}
+
+export interface IWSGetMessageAction {
+    type: typeof WS_GET_MESSAGE;
+    responseData: TResponseData;
+    payload?: any;
+  }
+
+export type TWSTypes =
+    | IWsConnectAction
+    | IWsDisconnectAction
+    | IWsConnectSuccessAction
+    | IWsConnectErrorAction
+    | IWsReceiveOrdersAction
+    | IWSGetMessageAction;
+
+// Order для модалки 

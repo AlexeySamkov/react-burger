@@ -3,7 +3,7 @@ import styles from './BurgerParts.module.css';
 import subtract from './../../../images/subtract.svg';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag, DragSourceMonitor } from 'react-dnd';
-import { useAppDispatch } from '../../../hooks/hooks';
+import { useAppDispatch } from '../../../services/hooks';
 import { addIngredientToConstructor, removeAllBunsFromConstructor } from '../../../services/actions/ingredientConstructorActions';
 import { IIngredient } from '../../../utils/types';
 

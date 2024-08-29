@@ -4,7 +4,7 @@ import styles from './ResetPassword.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { resetPasswordConfirm } from '../../services/actions/passwordActions';
 import useForm from '../../hooks/useForm';
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch } from '../../services/hooks';
 
 const ResetPassword = () => {
     const dispatch = useAppDispatch(); // Используем типизированный dispatch

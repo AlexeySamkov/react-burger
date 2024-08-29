@@ -1,0 +1,27 @@
+
+.orderHistory {
+    display: flex;
+    flex-direction: column;
+    height: 87vh; 
+    overflow-y: auto; 
+    overflow-x: hidden;
+    padding-right: 16px; 
+    scrollbar-width: thin;
+    width: 80%;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: rgb(75, 72, 255);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 1s linear infinite;
+    text-align: center;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

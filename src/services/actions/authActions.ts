@@ -38,7 +38,7 @@ export const register = (email: string, password: string, name: string) => {
     } catch (error: any) {
       dispatch({
         type: REGISTER_FAILED,
-        error: `Произошла ошибка: ${error.message}`
+        payload: `Произошла ошибка: ${error.message}`
       });
     }
   };
@@ -63,11 +63,23 @@ export const login = (email: string, password: string) => {
         payload: res.user
       });
     } catch (error: any) {
-      console.log('Login failed:', error.message);
-      alert('Login failed:' + error.message)
+
+      let errorMessage = 'Неизвестная ошибка';
+      if (error.response && error.response.data && error.response.data.message) { // Обработка ошибок, возвращенных сервером         
+        errorMessage = error.response.data.message;
+      } else if (error.message) {   // Обработка стандартных ошибок JavaScript     
+        errorMessage = error.message;
+      } else if (typeof error === 'string') {
+        errorMessage = error;
+      }
+
+      console.log('Login failed:', errorMessage);
+      alert('Login failed:' + errorMessage)
       dispatch({
         type: LOGIN_FAILED,
-        error: `Произошла ошибка: ${error.message}`
+        payload: {
+          error: `Произошла ошибка: ${errorMessage}`
+        }
       });
     }
   };
@@ -94,7 +106,7 @@ export const logout = () => {
       console.log('Logout failed:', error.message);
       dispatch({
         type: LOGOUT_FAILED,
-        error: `Произошла ошибка: ${error.message}`
+        payload: `Произошла ошибка: ${error.message}`
       });
     }
   };

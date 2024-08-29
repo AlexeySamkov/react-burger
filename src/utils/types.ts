@@ -13,6 +13,7 @@ export interface IIngredient {
   image_large: string;
   __v: number;
   position?: 'top' | 'bottom';
+  uniqueId: string; 
   counter: number;
 }
 
@@ -81,14 +82,65 @@ export interface IngredientsState {
   ingredients: IIngredient[];
   groupTypes: { type: string; name: string }[];
   currentIngredient: IIngredient | null;
-  constructorIngredients: (IIngredient & { uniqueId?: string; position?: 'top' | 'bottom' })[];
-  order: any; // IOrder; 
+  constructorIngredients: IIngredient [];
+  order: IOrder | null; 
   error: string | null;
   loading: boolean;
 }
 
-// export interface IAction<T = any> {
-//   type: string;
-//   payload?: T;
-//   error?: string;
+export type TWSState = {
+  wsConnected: boolean;
+  responseData: any;
+  wsError?: Event;
+  currentFeedId: string | null;
+  orderFeedModalVisibility: boolean
+}
+
+// ws 
+export interface IOrderHistory {
+  _id: string;
+  ingredients: string[];
+  status: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+  name: string;
+}
+
+export interface TResponseData {
+  success: boolean;
+  orders: IOrderHistory[];
+  total: number;
+  totalToday: number;
+}
+
+export interface IOrderCardProps {
+  order: IOrderHistory;
+  ingredients: IIngredient[]; 
+}
+
+
+// export type TWSOrders = IOrderCardProps & {
+//   owner?: object;
+//   price?: number;
+// };
+
+// export type TResponseData = {
+//   success: boolean;
+//   orders: Array<TWSOrders>;
+//   total: number;
+//   totalToday: number;
+// }
+
+
+// export interface IOrderCardProps {
+//   order: {
+//       _id: string;
+//       number: number;
+//       name: string;
+//       status: string;
+//       ingredients: string[];
+//       createdAt: string;
+//       updatedAt: string;
+//   };
 // }

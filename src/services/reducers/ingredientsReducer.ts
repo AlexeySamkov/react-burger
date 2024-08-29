@@ -10,12 +10,14 @@ import {
   PLACE_ORDER_SUCCESS,
   PLACE_ORDER_FAILED,
   UPDATE_INGREDIENT_ORDER,
+  RESET_ORDER_NUMBER,
   TIngredientsActions,
   TConstructorActions,
   TOrderActions
 } from '../actions/actions';
 import { IngredientsState } from '../../utils/types';
 import { getHeading } from '../../utils/getHeading';
+
 
 const initialState: IngredientsState = {
   ingredients: [],
@@ -119,10 +121,17 @@ export const ingredientsReducer = (
         ingredients: state.ingredients.map(ingredient => ({ ...ingredient, counter: 0 })),
       };
 
+    case RESET_ORDER_NUMBER:
+      return {
+        ...state,
+        order: null, // Обнуляем номер заказа
+      };
+
+
     case PLACE_ORDER_SUCCESS:
       return {
         ...state,
-        order: action.payload,
+        order: { number: action.payload.number },
       };
 
     case PLACE_ORDER_FAILED:
