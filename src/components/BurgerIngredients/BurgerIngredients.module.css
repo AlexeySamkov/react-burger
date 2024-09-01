@@ -22,6 +22,7 @@
     /* высота экрана */
     overflow-y: auto;
     /* прокрутка по вертикали */
+    scrollbar-width: thin;
 }
 
 .burgerBox::-webkit-scrollbar {

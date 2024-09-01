@@ -6,16 +6,42 @@
   margin: auto;
   background-color: black;
   font-family: 'JetBrains Mono', monospace;
+  animation: fadeIn 0.3s ease-out;
   padding: 30px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .modalHeader {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
-  text-align: left;
 }
 
+.headerContainer {
+  flex-grow: 1;
+}
+
+.header {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff; /* Стиль заголовка */
+}
+
+.orderNumber {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center; /* Выровнять текст по центру */
+  font-family: 'Iceland', sans-serif; /* Шрифт Iceland */
+  font-size: 28px;
+  font-weight: 400;
+  color: #F2F2F3;
+}
 
 .closeButton {
   background-color: transparent;
@@ -33,4 +59,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000; 
 }

@@ -4,7 +4,7 @@ interface ApiResponse {
   success: boolean;
   refreshToken?: string;
   accessToken?: string;
-  [key: string]: any;
+  [key: string]: any; // позволяет поддерживать любые другие поля
 }
 
 // Функция для проверки ответа

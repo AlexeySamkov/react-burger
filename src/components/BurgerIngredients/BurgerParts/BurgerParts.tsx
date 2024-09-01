@@ -3,7 +3,7 @@ import styles from './BurgerParts.module.css';
 import subtract from './../../../images/subtract.svg';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag, DragSourceMonitor } from 'react-dnd';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../../services/hooks';
 import { addIngredientToConstructor, removeAllBunsFromConstructor } from '../../../services/actions/ingredientConstructorActions';
 import { IIngredient } from '../../../utils/types';
 
@@ -21,7 +21,7 @@ interface DropResult {
 }
 
 const BurgerParts: React.FC<IBurgerPartsProps> = ({ item, handleOpenModal }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch(); // Используем типизированный dispatch
   const [{ isDragging }, dragRef] = useDrag<IDragItem, DropResult, { isDragging: boolean }>({
     type: 'ingredient',
     item: { id: item._id },

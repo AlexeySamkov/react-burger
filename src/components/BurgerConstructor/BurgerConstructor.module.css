@@ -16,6 +16,7 @@
     overflow-y: auto;
     /* прокрутка по вертикали */
     margin-top: 15px;
+    scrollbar-width: thin;
 }
 
 .emptyMessage {
