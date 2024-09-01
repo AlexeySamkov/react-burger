@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { useAppSelector , useAppDispatch} from '../../services/hooks';
+import { useAppSelector, useAppDispatch } from '../../services/hooks';
 import { fetchIngredients } from '../../services/actions/ingredientsActions';
-import { clearCurrentIngredient } from '../../services/actions/currentIngredientActions';
-import { clearCurrentOrder } from '../../services/actions/currentOrderActions';
+import { clearCurrentIngredient, setCurrentIngredient } from '../../services/actions/currentIngredientActions';
+import { clearCurrentOrder, setCurrentOrder } from '../../services/actions/currentOrderActions';
 import { useModal } from '../../hooks/useModal';
 import AppHeader from '../AppHeader/AppHeader';
 import Home from '../../pages/Home/Home';
@@ -45,6 +45,33 @@ const App: React.FC = () => {
   //позволяет безопасно получить значение background из состояния маршрута, если оно существует, или присвоить background значение undefined, если состояние маршрута не содержит это свойство.
 
   const { isModalOpen, openModal, closeModal } = useModal();
+
+  useEffect(() => {
+    const ingredientId = location.pathname.startsWith('/ingredients/')
+      ? location.pathname.split('/').pop()
+      : null;
+    const orderNumber = location.pathname.startsWith('/feed/') || location.pathname.startsWith('/profile/orders/')
+      ? location.pathname.split('/').pop()
+      : null;
+
+      // console.log("orderNumber="+ orderNumber); 
+
+    if (ingredientId) {
+      // Находим ингредиент по ID и открываем попап
+      const ingredient = ingredients.find((item: IIngredient) => item._id === ingredientId);
+      if (ingredient) {
+        dispatch(setCurrentIngredient(ingredient));
+        openModal();
+      }
+    }
+
+
+    if (orderNumber) { 
+        console.log("from APP orderNumber="+ orderNumber);
+        dispatch(setCurrentOrder( Number(orderNumber)));
+        openModal();
+    }
+  }, [location.pathname, ingredients, orders, dispatch, openModal, currentOrderNumber, navigate, location]);
 
   useEffect(() => {
     dispatch(fetchIngredients());
@@ -123,7 +150,7 @@ const App: React.FC = () => {
                 path="/feed/:number"
                 element={
                   <Modal orderNumber={currentOrder.number.toString()} onClose={handleModalClose}>
-                      <OrderDetails currentOrder={orders.find(order => order.number === Number(location.pathname.split('/').pop())) || null} />
+                    <OrderDetails currentOrder={orders.find(order => order.number === Number(location.pathname.split('/').pop())) || null} />
                   </Modal>
                 }
               />

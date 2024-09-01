@@ -11,9 +11,12 @@ interface ProtectedRouteElementProps {
 const ProtectedRouteElement: React.FC<ProtectedRouteElementProps> = ({ element, anonymous = false }) => {
     const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
     const location = useLocation();
-    const from = location.state?.from || '/';
+    const from = location.state?.from?.pathname || '/';
 
-    console.log('Из ProtectedRouteElement - isAuthenticated:', isAuthenticated);
+    
+    console.log("from =" + from +  "; Из ProtectedRouteElement - isAuthenticated:" + isAuthenticated);
+    console.log("Из ProtectedRouteElement location.pathname = " + location.pathname)
+    
 
     // Если разрешен неавторизованный доступ, а пользователь авторизован...
     if (anonymous && isAuthenticated) {

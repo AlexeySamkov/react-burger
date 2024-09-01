@@ -1,6 +1,6 @@
 import React, { useEffect, FormEvent, ChangeEvent, MouseEvent } from 'react';
 import { useAppSelector, useAppDispatch } from '../../services/hooks';
-import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
+import { NavLink, Route, Routes, useNavigate,   } from 'react-router-dom'; //useLocation
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getUser, updateUser } from '../../services/actions/userActions';
 import { logout } from '../../services/actions/authActions';
@@ -9,6 +9,7 @@ import useForm from '../../hooks/useForm';
 import { IProfileFormValues } from '../../utils/types'
 import { RootState } from '../../services/actions/actions'
 import OrderHistory from '../OrderHistory/OrderHistory'
+// import { setCurrentOrder } from '../../services/actions/currentOrderActions';
 
 interface IProfileContentProps {
     values: IProfileFormValues;
@@ -21,6 +22,7 @@ const Profile: React.FC = () => {
     const navigate = useNavigate();
     const user = useAppSelector((state: RootState) => state.auth.user);
     const { values, handleChange, setValues } = useForm({ name: '', email: '', password: '' });
+    //  const location = useLocation(); // Используем useLocation для доступа к текущему URL
 
     useEffect(() => {
         if (user) {
@@ -35,7 +37,7 @@ const Profile: React.FC = () => {
 
     const handleLogout = async (e: MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
-        await dispatch(logout());
+        dispatch(logout());
         navigate('/login');
     };
 
@@ -43,6 +45,7 @@ const Profile: React.FC = () => {
     useEffect(() => {
         dispatch(getUser());
     }, [dispatch]);
+
 
     return (
         <div className={styles.container}>
@@ -54,7 +57,7 @@ const Profile: React.FC = () => {
                 <NavLink className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link} to="/profile/orders">
                     История заказов
                 </NavLink>
-                <NavLink className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link} to="/login" onClick={handleLogout}>
+                <NavLink className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link} to="/logout" onClick={handleLogout}>
                     Выход
                 </NavLink>
             </div>
