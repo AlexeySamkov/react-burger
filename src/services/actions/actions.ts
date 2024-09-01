@@ -303,3 +303,5 @@ export type TWSTypes =
     | IWSGetMessageAction;
 
 // Order для модалки 
+export const SET_CURRENT_ORDER = 'SET_CURRENT_ORDER';
+export const CLEAR_CURRENT_ORDER = 'CLEAR_CURRENT_ORDER';

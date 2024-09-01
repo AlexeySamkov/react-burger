@@ -1,0 +1,29 @@
+.orderDetails {
+    width: 540px;
+    height: 620px;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.ingredientsList {
+    width: 540px;
+    height: 266px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.lastRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.totalPrice {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Отступ между суммой и иконкой валюты */
+}

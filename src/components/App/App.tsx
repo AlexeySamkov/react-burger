@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../services/hooks';
 import { fetchIngredients } from '../../services/actions/ingredientsActions';
 import { setCurrentIngredient, clearCurrentIngredient } from '../../services/actions/currentIngredientActions';
+import { clearCurrentOrder } from '../../services/actions/currentOrderActions';
 import { useModal } from '../../hooks/useModal';
 import AppHeader from '../AppHeader/AppHeader';
 import Home from '../../pages/Home/Home';
@@ -36,8 +37,8 @@ const App: React.FC = () => {
   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
 
   const orders = useSelector((state: RootState) => state.ws.orders?.orders || []);
-  const currentOrder = useSelector((state: RootState) => state.currentOrder.currentOrder);
-  const order = orders.find((order) => order.number === currentOrder);
+  const currentOrderNumber = useSelector((state: RootState) => state.currentOrder.currentOrder);
+  const currentOrder = orders.find((order) => order.number === currentOrderNumber);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -52,6 +53,7 @@ const App: React.FC = () => {
 
   const handleModalClose = () => {
     dispatch(clearCurrentIngredient());
+    dispatch(clearCurrentOrder());
     closeModal();
     navigate(-1);
   };
@@ -111,7 +113,7 @@ const App: React.FC = () => {
               если был переход с состоянием background и состояние модального окна isModalOpen истинно,
               то рендерится этот блок
           */}
-          {background && isModalOpen && (
+          {background && isModalOpen && currentIngredient && (
             <Routes>
               <Route
                 path="/ingredients/:id"
@@ -127,13 +129,13 @@ const App: React.FC = () => {
               />
             </Routes>
           )}
-          {background && isModalOpen && order && (
+          {background && isModalOpen && currentOrder && (
             <Routes>
               <Route
                 path="/feed/:number"
                 element={
-                  <Modal header={"Зказ"} onClose={handleModalClose}>
-                     <OrderDetails order={order} ingredients={ingredients} />
+                  <Modal header={"Зказ #" + currentOrder.number} onClose={handleModalClose}>
+                    <OrderDetails />
                   </Modal>
                 }
               />

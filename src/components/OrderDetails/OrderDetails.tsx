@@ -1,11 +1,24 @@
 import React from 'react';
-import { IOrderCardProps } from '../../utils/types';
-import styles from './OrderDetails.module.css'; 
+import styles from './OrderDetails.module.css';
 import { FormattedDate, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../services/actions/actions';
 
 
-const OrderDetails: React.FC<IOrderCardProps> = ({ order, ingredients }) => {
-    const orderTime = new Date(order.createdAt);
+const OrderDetails = () => {
+
+    const orders = useSelector((state: RootState) => state.ws.orders?.orders || []);
+    const currentOrderNumber = useSelector((state: RootState) => state.currentOrder.currentOrder);
+    const currentOrder = orders.find((order) => order.number === currentOrderNumber);
+    const { ingredients } = useSelector((state: RootState) => state.ingredients);
+    
+    if (!currentOrder) {
+        return <p>Заказ не найден</p>; 
+    }
+
+    const orderTime = new Date(currentOrder.createdAt);
+    
+
 
     const translateStatus = (status: string): string => {
         switch (status) {
@@ -35,7 +48,7 @@ const OrderDetails: React.FC<IOrderCardProps> = ({ order, ingredients }) => {
     };
 
     const calculateOrderTotal = () => {
-        return order.ingredients.reduce((total, ingredientId) => {
+        return currentOrder.ingredients.reduce((total, ingredientId) => {
             const ingredient = ingredients.find(ing => ing._id === ingredientId);
             return ingredient ? total + ingredient.price : total;
         }, 0);
@@ -43,13 +56,12 @@ const OrderDetails: React.FC<IOrderCardProps> = ({ order, ingredients }) => {
 
     return (
         <div className={styles.orderDetails}>
-            <h2>Заказ #{order.number}</h2>
+            {/* <h2>Заказ #{order.number}</h2> */}
             <div className={styles.orderInfo}>
-                <span>{translateStatus(order.status)}</span>
-                <span><FormattedDate date={orderTime} /></span>
+                <span>{translateStatus(currentOrder.status)}</span>
             </div>
             <div className={styles.ingredientsList}>
-                {order.ingredients.map((ingredientId, index) => {
+                {currentOrder.ingredients.map((ingredientId, index) => {
                     const { image, name } = getIngredientDetails(ingredientId);
                     return (
                         <div key={index} className={styles.ingredient}>
@@ -59,8 +71,13 @@ const OrderDetails: React.FC<IOrderCardProps> = ({ order, ingredients }) => {
                     );
                 })}
             </div>
-            <div className={styles.orderTotal}>
-                <span>Сумма: {calculateOrderTotal()}</span>
+
+            <div className={styles.lastRow}>
+                <FormattedDate date={orderTime} />
+                <div className={styles.totalPrice}>
+                    <p>{calculateOrderTotal()}</p>
+                    <CurrencyIcon type="primary" />
+                </div>
             </div>
         </div>
     );

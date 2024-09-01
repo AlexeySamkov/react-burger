@@ -1,4 +1,4 @@
-import { SET_CURRENT_ORDER } from '../actions/currentOrderActions';
+import { SET_CURRENT_ORDER, CLEAR_CURRENT_ORDER } from '../actions/actions';
 
 interface CurrentOrderState {
   currentOrder: number | null;
@@ -14,6 +14,11 @@ export const currentOrderReducer = (state = initialState, action: any): CurrentO
       return {
         ...state,
         currentOrder: action.payload,
+      };
+    case CLEAR_CURRENT_ORDER:
+      return {
+        ...state,
+        currentOrder: null 
       };
     default:
       return state;
