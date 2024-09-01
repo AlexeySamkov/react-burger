@@ -298,9 +298,10 @@ export type TWSTypes =
     | IWsConnectAction
     | IWsDisconnectAction
     | IWsConnectSuccessAction
-    | IWsConnectErrorAction
-    | IWsReceiveOrdersAction
+    | IWsConnectErrorAction    
     | IWSGetMessageAction;
+
+  
 
 // CurreentOrder 
 export const SET_CURRENT_ORDER = 'SET_CURRENT_ORDER';

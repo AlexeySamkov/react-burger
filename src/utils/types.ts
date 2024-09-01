@@ -118,29 +118,3 @@ export interface IOrderCardProps {
   order: IOrderHistory;
   ingredients: IIngredient[]; 
 }
-
-
-// export type TWSOrders = IOrderCardProps & {
-//   owner?: object;
-//   price?: number;
-// };
-
-// export type TResponseData = {
-//   success: boolean;
-//   orders: Array<TWSOrders>;
-//   total: number;
-//   totalToday: number;
-// }
-
-
-// export interface IOrderCardProps {
-//   order: {
-//       _id: string;
-//       number: number;
-//       name: string;
-//       status: string;
-//       ingredients: string[];
-//       createdAt: string;
-//       updatedAt: string;
-//   };
-// }
