@@ -302,6 +302,9 @@ export type TWSTypes =
     | IWsReceiveOrdersAction
     | IWSGetMessageAction;
 
-// Order для модалки 
+// CurreentOrder 
 export const SET_CURRENT_ORDER = 'SET_CURRENT_ORDER';
 export const CLEAR_CURRENT_ORDER = 'CLEAR_CURRENT_ORDER';
+export const FETCH_CURRENT_ORDER_SUCCESS = 'FETCH_CURRENT_ORDER_SUCCESS'
+export const FETCH_CURRENT_ORDER_FAILED = 'FETCH_CURRENT_ORDER_FAILED'
+export const FETCH_CURRENT_ORDER_REQUEST = 'FETCH_CURRENT_ORDER_REQUEST'

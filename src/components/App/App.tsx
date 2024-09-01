@@ -3,7 +3,7 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../services/hooks';
 import { fetchIngredients } from '../../services/actions/ingredientsActions';
-import { setCurrentIngredient, clearCurrentIngredient } from '../../services/actions/currentIngredientActions';
+import { clearCurrentIngredient } from '../../services/actions/currentIngredientActions';
 import { clearCurrentOrder } from '../../services/actions/currentOrderActions';
 import { useModal } from '../../hooks/useModal';
 import AppHeader from '../AppHeader/AppHeader';
@@ -20,6 +20,7 @@ import Profile from '../../pages/Profile/Profile';
 import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElement';
 import OrderDetailsPage from '../../pages/OrderDetailsPage/OrderDetailsPage'
 import OrderDetails from '../OrderDetails/OrderDetails'
+// import OrderHistory from '../../pages/OrderHistory/OrderHistory'
 
 import { getUser } from '../../services/actions/userActions';
 import { IIngredient } from '../../utils/types';
@@ -64,18 +65,6 @@ const App: React.FC = () => {
     }
   }, [background, openModal]);
 
-  // чтобы не терялось состоояние при перезагрузке. но помогло совсем другое
-  // useEffect(() => {
-  //   if (isModalOpen && !loading && location.pathname.startsWith('/ingredients/') && !currentIngredient) {
-  //     const ingredientId = location.pathname.split('/').pop();
-  //     const ingredient = ingredients.find((item: IIngredient) => item._id === ingredientId);
-
-  //     if (ingredient) {
-  //       dispatch(setCurrentIngredient(ingredient));
-  //     }
-  //   }
-  // }, [isModalOpen, loading, location, currentIngredient, ingredients, dispatch]);
-
   useEffect(() => {
     // Проверка токенов и получение данных пользователя при инициализации
     const accessToken = localStorage.getItem('accessToken');
@@ -104,6 +93,7 @@ const App: React.FC = () => {
             <Route path="/forgot-password" element={<ProtectedRouteElement element={<ForgotPassword />} />} />
             <Route path="/reset-password" element={<ProtectedRouteElement element={<ResetPassword />} />} />
             <Route path="/profile/*" element={<ProtectedRouteElement element={<Profile />} />} />
+            <Route path="/profile/orders/:number" element={<ProtectedRouteElement element={<OrderDetailsPage />} />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
 
@@ -134,8 +124,16 @@ const App: React.FC = () => {
               <Route
                 path="/feed/:number"
                 element={
-                  <Modal header={"Зказ #" + currentOrder.number} onClose={handleModalClose}>
-                    <OrderDetails />
+                  <Modal orderNumber={currentOrder.number.toString()} onClose={handleModalClose}>
+                      <OrderDetails currentOrder={orders.find(order => order.number === Number(location.pathname.split('/').pop())) || null} />
+                  </Modal>
+                }
+              />
+              <Route
+                path="/profile/orders/:number"
+                element={
+                  <Modal orderNumber={currentOrder.number.toString()} onClose={handleModalClose}>
+                    <OrderDetails currentOrder={orders.find(order => order.number === Number(location.pathname.split('/').pop())) || null} />
                   </Modal>
                 }
               />

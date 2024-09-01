@@ -3,7 +3,6 @@ import {
   WS_DISCONNECT,
   WS_CONNECT_SUCCESS,
   WS_CONNECT_ERROR,
-  // WS_RECEIVE_ORDERS,
   WS_GET_MESSAGE,
   TWSTypes
 } from '../actions/actions';
@@ -14,7 +13,7 @@ import {
 
 interface IWsState {
   isConnected: boolean;
-  orders: TResponseData | null; 
+  orders: TResponseData | null;
   error: string | null;
 }
 
@@ -61,15 +60,29 @@ export const wsReducer = (state = initialState, action: TWSTypes): IWsState => {
         isConnected: false,
         error: 'Ошибка подключения к WebSocket',
       };
-      case WS_GET_MESSAGE:
-        return {
-          ...state,
-          orders: {
-            ...state.orders,
-            ...action.payload,
-            orders: action.payload.orders.sort((a: IOrderHistory, b: IOrderHistory) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-          },
-        };
+    // case WS_GET_MESSAGE:
+    //   return {
+    //     ...state,
+    //     orders: {
+    //       ...state.orders,
+    //       ...action.payload,
+    //       orders: action.payload.orders.sort((a: IOrderHistory, b: IOrderHistory) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    //     },
+    //   };
+    case WS_GET_MESSAGE:
+      return {
+        ...state,
+        orders: {
+          success: action.payload.success,
+          orders: action.payload.orders.sort(
+            (a: IOrderHistory, b: IOrderHistory) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          ),
+          total: action.payload.total,
+          totalToday: action.payload.totalToday,
+        },
+      };
+
     default:
       return state;
   }

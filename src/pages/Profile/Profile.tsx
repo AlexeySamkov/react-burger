@@ -52,7 +52,7 @@ const Profile: React.FC = () => {
                 <NavLink className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link} to="/profile" end>
                     Профиль
                 </NavLink>
-                <NavLink className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link} to="/profile/order-history">
+                <NavLink className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link} to="/profile/orders">
                     История заказов
                 </NavLink>
                 <NavLink className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link} to="/login" onClick={handleLogout}>
@@ -62,7 +62,7 @@ const Profile: React.FC = () => {
             <div className={`${styles.content}`}>
                 <Routes>
                     <Route path="/" element={<ProfileContent values={values} handleChange={handleChange} onSave={handleSave} />} />
-                    <Route path="order-history" element={<OrderHistory />} />
+                    <Route path="orders" element={<OrderHistory />} />
                 </Routes>
             </div>
         </div>
