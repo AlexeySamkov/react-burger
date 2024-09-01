@@ -16,7 +16,7 @@ const OrderHistory: React.FC = () => {
 
     useEffect(() => {
         if (accessToken) {
-            dispatch(WSConnectAction(accessToken));
+            dispatch(WSConnectAction(accessToken, ''));
         }
         return () => {
             dispatch(WSDisconnectAction()); // Закрываю соединение при размонтировании компонента

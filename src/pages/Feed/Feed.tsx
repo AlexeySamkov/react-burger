@@ -14,7 +14,7 @@ const Feed: React.FC = () => {
     const ordersData = useSelector((state: RootState) => state.ws.orders) as TResponseData;
     const ingredients = useSelector((state: RootState) => state.ingredients.ingredients) as IIngredient[];
     useEffect(() => {
-        dispatch(WSConnectAction('all'));
+        dispatch(WSConnectAction( '', '/all'));
         return () => {
             dispatch(WSDisconnectAction()); // Закрываем соединение при размонтировании компонента
         };

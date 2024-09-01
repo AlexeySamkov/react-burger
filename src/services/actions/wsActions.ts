@@ -10,12 +10,14 @@ import {
 } from '../actions/actions'
 
 
-
-export const WSConnectAction = (payload?: string): IWsConnectAction => {    
+  export const WSConnectAction = (token?: string, endpoint?: string): IWsConnectAction => {    
     return {
       type: WS_CONNECT,
-      payload: payload      
-    }
+      payload: {
+        token: token || '',
+        endpoint: endpoint || ''
+      }
+    };
   };
 
   export const WSConnectSuccessAction = (): IWsConnectSuccessAction => ({

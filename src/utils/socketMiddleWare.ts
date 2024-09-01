@@ -4,20 +4,27 @@ import type { RootState, AppDispatch } from '../services/actions/actions';
 
 export const socketMiddleware = (wsUrl: string, wsActions: TWsActions): Middleware => {
   return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
-    let socket: WebSocket;
+    let socket: WebSocket | null = null;
 
     return next => (action: TWSTypes) => {
       const { dispatch } = store;
       const { type, payload } = action;
       const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
-      const token = payload;
 
-      if (type === wsInit && token !== 'all') {
-        socket = new WebSocket(`${wsUrl}?token=${token}`);
-      }
-      
-      if (type === wsInit && token === 'all') {
-        socket = new WebSocket(`${wsUrl}/all`);
+      if (type === wsInit && payload) {
+        const { token, endpoint } = payload;
+        let fullUrl = wsUrl;
+
+        // Добавляю токен в URL, если он передан
+        if (token) {
+          fullUrl += `?token=${token}`;
+        }
+
+        // Добавляю endpoint в URL, если он передан
+        if (endpoint) {
+          fullUrl += `${endpoint}`;
+        }
+        socket = new WebSocket(fullUrl);
       }
 
       if (socket) {
