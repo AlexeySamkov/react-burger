@@ -1,17 +1,16 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../services/hooks';
 import styles from './OrderDetails.module.css';
 import { FormattedDate, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IOrderHistory } from '../../utils/types';
-import type { RootState } from '../../services/actions/actions';
 
 interface OrderDetailsProps {
     currentOrder: IOrderHistory | null;
 }
 
 const OrderDetails: React.FC<OrderDetailsProps> = ({ currentOrder }) => {
-    const { ingredients } = useSelector((state: RootState) => state.ingredients);
-    const currentOrderNumber = useSelector((state: RootState) => state.currentOrder.currentOrder);
+    const { ingredients } = useAppSelector((state) => state.ingredients);
+    const currentOrderNumber = useAppSelector((state) => state.currentOrder.currentOrder);
 
     if (!currentOrder) {
         return <p>Заказ не найден</p>;

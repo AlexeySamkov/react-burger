@@ -1,7 +1,6 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../services/actions/actions'
+import { useAppSelector } from '../../services/hooks';
 
 interface ProtectedRouteElementProps {
     element: React.ReactElement;
@@ -10,7 +9,7 @@ interface ProtectedRouteElementProps {
   
 
 const ProtectedRouteElement: React.FC<ProtectedRouteElementProps> = ({ element, anonymous = false }) => {
-    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+    const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
     const location = useLocation();
     const from = location.state?.from || '/';
 

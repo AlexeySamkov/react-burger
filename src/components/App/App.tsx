@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useAppDispatch } from '../../services/hooks';
+import { useAppSelector , useAppDispatch} from '../../services/hooks';
 import { fetchIngredients } from '../../services/actions/ingredientsActions';
 import { clearCurrentIngredient } from '../../services/actions/currentIngredientActions';
 import { clearCurrentOrder } from '../../services/actions/currentOrderActions';
@@ -11,34 +10,33 @@ import Home from '../../pages/Home/Home';
 import IngredientDetailsPage from '../../pages/IngredientDetailsPage/IngredientDetailsPage';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../BurgerIngredients/IngredientDetails/IngredientDetails';
+
 import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 import RegisterPage from '../../pages/RegisterPage/RegisterPage';
 import LoginPage from '../../pages/LoginPage/LoginPage';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
+import Feed from '../../pages/Feed/Feed';
+
 import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElement';
 import OrderDetailsPage from '../../pages/OrderDetailsPage/OrderDetailsPage'
 import OrderDetails from '../OrderDetails/OrderDetails'
-// import OrderHistory from '../../pages/OrderHistory/OrderHistory'
 
 import { getUser } from '../../services/actions/userActions';
 import { IIngredient } from '../../utils/types';
-import type { RootState } from '../../services/actions/actions';
-
 
 import styles from './App.module.css';
-import Feed from '../../pages/Feed/Feed';
 
 
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch(); // Используем типизированный dispatch
-  const { loading, error, ingredients, currentIngredient } = useSelector((state: RootState) => state.ingredients);
-  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const { loading, error, ingredients, currentIngredient } = useAppSelector((state) => state.ingredients);
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
-  const orders = useSelector((state: RootState) => state.ws.orders?.orders || []);
-  const currentOrderNumber = useSelector((state: RootState) => state.currentOrder.currentOrder);
+  const orders = useAppSelector((state) => state.ws.orders?.orders || []);
+  const currentOrderNumber = useAppSelector((state) => state.currentOrder.currentOrder);
   const currentOrder = orders.find((order) => order.number === currentOrderNumber);
 
   const location = useLocation();

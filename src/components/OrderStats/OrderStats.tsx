@@ -1,10 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../services/actions/actions';
+import { useAppSelector } from '../../services/hooks';
 import styles from './OrderStats.module.css';
 
 const OrderStats: React.FC = () => {
-    const ordersData = useSelector((state: RootState) => state.ws.orders);
+    const ordersData = useAppSelector((state) => state.ws.orders);
 
     if (!ordersData) {
         return null; // Если данных нет, компонент не будет рендериться

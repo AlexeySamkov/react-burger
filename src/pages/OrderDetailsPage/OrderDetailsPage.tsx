@@ -1,20 +1,19 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppSelector, useAppDispatch } from '../../services/hooks';
 import { useParams } from 'react-router-dom';
-import { RootState } from '../../services/actions/actions';
 import { fetchOrder, clearCurrentOrder } from '../../services/actions/currentOrderActions';
 import OrderDetails from '../../components/OrderDetails/OrderDetails';
 import styles from './OrderDetailsPage.module.css';
 
 const OrderDetailsPage: React.FC = () => {
   const { number } = useParams<{ number: string }>();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const currentOrder = useSelector((state: RootState) =>
+  const currentOrder = useAppSelector((state) =>
     state.ws.orders?.orders.find(order => order.number === Number(number)) || null
   );
 
-  const { orderDetails, loading, error } = useSelector((state: RootState) => state.currentOrder);
+  const { orderDetails, loading, error } = useAppSelector((state) => state.currentOrder);
 
   useEffect(() => {
     if (number && !currentOrder) {
