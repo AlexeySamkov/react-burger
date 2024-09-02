@@ -5,6 +5,7 @@ import { userReducer } from './userReducer';
 import { passwordReducer } from './passwordReducer';
 import { wsReducer } from './wsReducer'
 import { currentOrderReducer } from './currentOrderReducer'
+import { locationReducer } from './locationReducer';
 
 
 
@@ -14,5 +15,6 @@ export const rootReducer = combineReducers({
   user: userReducer,
   password: passwordReducer, 
   ws: wsReducer,
-  currentOrder: currentOrderReducer
+  currentOrder: currentOrderReducer,
+  location: locationReducer
 });

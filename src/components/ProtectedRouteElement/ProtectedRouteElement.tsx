@@ -14,20 +14,20 @@ const ProtectedRouteElement: React.FC<ProtectedRouteElementProps> = ({ element, 
     const from = location.state?.from?.pathname || '/';
 
     
-    console.log("from =" + from +  "; Из ProtectedRouteElement - isAuthenticated:" + isAuthenticated);
-    console.log("Из ProtectedRouteElement location.pathname = " + location.pathname)
+    // console.log("ProtectedRouteElement: from =" + from );
+    // console.log("ProtectedRouteElement: location.pathname =" + location.pathname );
     
 
     // Если разрешен неавторизованный доступ, а пользователь авторизован...
     if (anonymous && isAuthenticated) {
         // ...то отправляем его на предыдущую страницу
-        console.log('Пользователь аутентифицирован, перенаправлен на:', from);
+        // console.log('Пользователь аутентифицирован, перенаправлен на:', from);
         return <Navigate to={from} />;
     }
     // Если требуется авторизация, а пользователь не авторизован...
     if (!anonymous && !isAuthenticated) {
         // ...то отправляем его на страницу логина
-        console.log('Пользователь не аутентифицирован, перенаправлен на /login');
+        // console.log('Пользователь не аутентифицирован, перенаправлен на /login');
         return <Navigate to="/login" state={{ from: location }} />;
     }
     // Если все ок, то рендерим внутреннее содержимое

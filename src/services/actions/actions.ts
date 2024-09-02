@@ -308,3 +308,11 @@ export const CLEAR_CURRENT_ORDER = 'CLEAR_CURRENT_ORDER';
 export const FETCH_CURRENT_ORDER_SUCCESS = 'FETCH_CURRENT_ORDER_SUCCESS'
 export const FETCH_CURRENT_ORDER_FAILED = 'FETCH_CURRENT_ORDER_FAILED'
 export const FETCH_CURRENT_ORDER_REQUEST = 'FETCH_CURRENT_ORDER_REQUEST'
+
+export const SET_PREVIOUS_LOCATION  = 'SET_PREVIOUS_LOCATION'
+
+
+export const setPreviousLocation = (location:any ) => ({
+    type: SET_PREVIOUS_LOCATION,
+    payload: location,
+});

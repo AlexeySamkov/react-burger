@@ -18,6 +18,9 @@ import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
 import Feed from '../../pages/Feed/Feed';
+import OrderHistory from '../../pages/OrderHistory/OrderHistory';
+import ProfileContent from '../../components/ProfileContent/ProfileContent';
+
 
 import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElement';
 import OrderDetailsPage from '../../pages/OrderDetailsPage/OrderDetailsPage'
@@ -43,21 +46,19 @@ const App: React.FC = () => {
   const navigate = useNavigate();
   const background = location.state && location.state.background;
   //позволяет безопасно получить значение background из состояния маршрута, если оно существует, или присвоить background значение undefined, если состояние маршрута не содержит это свойство.
-
+  
   const { isModalOpen, openModal, closeModal } = useModal();
-
+  
+  // если в пути передан ingredientId или orderNumber делаем его set , и открывааем модалку 
   useEffect(() => {
     const ingredientId = location.pathname.startsWith('/ingredients/')
       ? location.pathname.split('/').pop()
       : null;
-    const orderNumber = location.pathname.startsWith('/feed/') || location.pathname.startsWith('/profile/orders/')
+    let orderNumber = location.pathname.startsWith('/feed/') || location.pathname.startsWith('/profile/orders/')
       ? location.pathname.split('/').pop()
       : null;
 
-      // console.log("orderNumber="+ orderNumber); 
-
     if (ingredientId) {
-      // Находим ингредиент по ID и открываем попап
       const ingredient = ingredients.find((item: IIngredient) => item._id === ingredientId);
       if (ingredient) {
         dispatch(setCurrentIngredient(ingredient));
@@ -66,10 +67,10 @@ const App: React.FC = () => {
     }
 
 
-    if (orderNumber) { 
-        console.log("from APP orderNumber="+ orderNumber);
-        dispatch(setCurrentOrder( Number(orderNumber)));
-        openModal();
+    if (orderNumber) {      
+      dispatch(setCurrentOrder(Number(orderNumber)));
+      // navigate(savedPath, { replace: true });
+      openModal();
     }
   }, [location.pathname, ingredients, orders, dispatch, openModal, currentOrderNumber, navigate, location]);
 
@@ -117,8 +118,12 @@ const App: React.FC = () => {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/forgot-password" element={<ProtectedRouteElement element={<ForgotPassword />} />} />
             <Route path="/reset-password" element={<ProtectedRouteElement element={<ResetPassword />} />} />
-            <Route path="/profile/*" element={<ProtectedRouteElement element={<Profile />} />} />
-            <Route path="/profile/orders/:number" element={<ProtectedRouteElement element={<OrderDetailsPage />} />} />
+            <Route path="/profile" element={<ProtectedRouteElement  element={<Profile />} />} >
+            {/* <Route path="/profile" element={<Profile />} > */}
+              <Route path="" element={<ProfileContent />} />
+              <Route path="orders" element={<OrderHistory />} />
+              <Route path="orders/:number"  element={<OrderDetailsPage />} />
+            </Route>
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
 

@@ -13,7 +13,7 @@ const OrderCard: React.FC<IOrderCardProps> = ({ order, ingredients }) => {
     const dispatch = useAppDispatch();
 
     const handleCardClick = () => {
-        dispatch(setCurrentOrder(order.number));         
+        dispatch(setCurrentOrder(order.number));
         if (location.pathname.startsWith('/feed')) {
             navigate(`/feed/${order.number}`, { state: { background: location } });
         } else if (location.pathname.startsWith('/profile/orders')) {

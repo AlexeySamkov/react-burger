@@ -1,39 +1,20 @@
-import React, { useEffect, FormEvent, ChangeEvent, MouseEvent } from 'react';
+import React, { useEffect, MouseEvent } from 'react';
 import { useAppSelector, useAppDispatch } from '../../services/hooks';
-import { NavLink, Route, Routes, useNavigate,   } from 'react-router-dom'; //useLocation
-import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { getUser, updateUser } from '../../services/actions/userActions';
+import { NavLink, useNavigate, Outlet } from 'react-router-dom';
 import { logout } from '../../services/actions/authActions';
+import { getUser } from '../../services/actions/userActions';
 import styles from './Profile.module.css';
-import useForm from '../../hooks/useForm';
-import { IProfileFormValues } from '../../utils/types'
-import { RootState } from '../../services/actions/actions'
-import OrderHistory from '../OrderHistory/OrderHistory'
-// import { setCurrentOrder } from '../../services/actions/currentOrderActions';
-
-interface IProfileContentProps {
-    values: IProfileFormValues;
-    handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    onSave: (e: FormEvent<HTMLFormElement>) => void;
-}
 
 const Profile: React.FC = () => {
-    const dispatch = useAppDispatch(); // Используем типизированный dispatch
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const user = useAppSelector((state: RootState) => state.auth.user);
-    const { values, handleChange, setValues } = useForm({ name: '', email: '', password: '' });
-    //  const location = useLocation(); // Используем useLocation для доступа к текущему URL
+    const user = useAppSelector((state) => state.auth.user);
 
     useEffect(() => {
-        if (user) {
-            setValues({ name: user.name, email: user.email, password: '' });
+        if (!user) {
+            dispatch(getUser());
         }
-    }, [user, setValues]);
-
-    const handleSave = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        dispatch(updateUser({ name: values.name, email: values.email, password: values.password }));
-    };
+    }, [dispatch, user]);
 
     const handleLogout = async (e: MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
@@ -41,53 +22,40 @@ const Profile: React.FC = () => {
         navigate('/login');
     };
 
-
-    useEffect(() => {
-        dispatch(getUser());
-    }, [dispatch]);
-
-
     return (
         <div className={styles.container}>
             <div className={styles.navigation}>
                 <div className={styles.emptyDiv} />
-                <NavLink className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link} to="/profile" end>
+                <NavLink
+                    className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link}
+                    to="/profile"
+                    end
+                >
                     Профиль
                 </NavLink>
-                <NavLink className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link} to="/profile/orders">
+                <NavLink
+                    className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link}
+                    to="/profile/orders"
+                >
                     История заказов
                 </NavLink>
-                <NavLink className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link} to="/logout" onClick={handleLogout}>
+                <NavLink
+                    className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link}
+                    to="/logout"
+                    onClick={handleLogout}
+                >
                     Выход
                 </NavLink>
             </div>
-            <div className={`${styles.content}`}>
-                <Routes>
-                    <Route path="/" element={<ProfileContent values={values} handleChange={handleChange} onSave={handleSave} />} />
+            <div className={styles.content}>
+                <Outlet />
+                {/* <Routes>
+                    <Route path="/" element={<ProfileContent />} />
                     <Route path="orders" element={<OrderHistory />} />
-                </Routes>
+                </Routes> */}
             </div>
         </div>
     );
 };
-
-const ProfileContent: React.FC<IProfileContentProps> = ({ values, handleChange, onSave }) => (
-    <form onSubmit={onSave}>
-        <div className={styles.inputs}>
-            <div className={styles.emptyDiv} />
-            <Input type="text" name="name" size="default" placeholder="Имя" value={values.name} onChange={handleChange} />
-            <Input type="text" name="email" size="default" placeholder="Логин" value={values.email} onChange={handleChange} />
-            <Input type="password" name="password" size="default" placeholder="Пароль" value={values.password} onChange={handleChange} />
-            <div >
-                <Button htmlType="submit" type="primary" size="small">
-                    Сохранить
-                </Button>
-            </div>
-        </div>
-
-    </form>
-);
-
-
 
 export default Profile;

@@ -25,13 +25,20 @@ const LoginPage = () => {
         }
     };
 
-    const from = location.state?.from?.pathname || '/';
+    const from =  location.state?.from?.pathname || '/';    
     useEffect(() => {
         if (isAuthenticated) {
-            console.log('Пользователь аутентифицирован, переходит на:', from);
+            // console.log('LoginPage Пользователь аутентифицирован, переходит на страниу, откуда пришли from:', from);
+            if (from==='/profile/orders')
+            {
+                navigate(-1)
+            }
+            else {
             navigate(from, { replace: true });
+            }
+            
         }
-    }, [isAuthenticated, navigate, from]);
+    }, [isAuthenticated, navigate, from, location]);
 
     return (
         <section className={styles.section}>
