@@ -1,13 +1,13 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../services/hooks';
 import IngredientDetails from '../../components/BurgerIngredients/IngredientDetails/IngredientDetails';
 import styles from './IngredientDetailsPage.module.css';
 import { IIngredient } from '../../utils/types';
 
 const IngredientDetailsPage = () => {
   const { id } = useParams();
-  const ingredient = useSelector((state: any) =>
+  const ingredient = useAppSelector((state) =>
     state.ingredients.ingredients.find((item: IIngredient) => item._id === id)
   );
 

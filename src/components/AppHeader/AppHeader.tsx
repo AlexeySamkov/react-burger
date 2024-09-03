@@ -26,7 +26,7 @@ const AppHeader = () => {
                 </Link>
                 <Link
                     className={stylesAppHeader.link}
-                    to="/orders"
+                    to="/feed"
                     onMouseEnter={() => setIsListHovered(true)}
                     onMouseLeave={() => setIsListHovered(false)}
                 >

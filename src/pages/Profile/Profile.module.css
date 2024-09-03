@@ -1,38 +1,39 @@
 .container {
     display: flex;
-    justify-content: center;
     align-items: flex-start;
     gap: 120px;
-    margin: 100px 10%;
+    margin: 0 10%;
 }
 
 .navigation {
     display: flex;
     flex-direction: column;
     gap: 40px;
+    padding: 20px;
 }
 
-.inputs {
+.emptyDiv {
+    height: 8vh;
+}
+
+
+.content {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    flex-grow: 1;
+    padding: 20px;
+    align-items: center;
 }
 
 .link {
-    text-decoration: none;    
+    text-decoration: none;
     font-size: 24px;
     font-weight: 700;
     line-height: 30px;
-    text-align: left;    
+    text-align: left;
     color: #8585AD;
 }
 
 .link:hover,
 .active {
     color: #F2F2F3;
-}
-
-.content {
-    flex-grow: 1;
-    padding: 20px;
 }

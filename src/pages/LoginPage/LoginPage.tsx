@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppSelector, useAppDispatch } from '../../services/hooks';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { login } from '../../services/actions/authActions';
@@ -10,10 +10,10 @@ import useForm from '../../hooks/useForm';
 const LoginPage = () => {
     const { values, handleChange } = useForm({ email: '', password: '' });
 
-    const dispatch: any = useDispatch();
+    const dispatch = useAppDispatch(); // Используем типизированный dispatch
     const navigate = useNavigate();
-    const location = useLocation();
-    const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
+    const location = useLocation();    
+    const isAuthenticated = useAppSelector((state ) => state.auth.isAuthenticated);
 
     const handleLogin = async (e: FormEvent) => {
         e.preventDefault();
@@ -25,13 +25,20 @@ const LoginPage = () => {
         }
     };
 
-    const from = location.state?.from?.pathname || '/';
+    const from =  location.state?.from?.pathname || '/';    
     useEffect(() => {
         if (isAuthenticated) {
-            console.log('Пользователь аутентифицирован, переходит на:', from);
+            // console.log('LoginPage Пользователь аутентифицирован, переходит на страниу, откуда пришли from:', from);
+            if (from==='/profile/orders')
+            {
+                navigate(-1)
+            }
+            else {
             navigate(from, { replace: true });
+            }
+            
         }
-    }, [isAuthenticated, navigate, from]);
+    }, [isAuthenticated, navigate, from, location]);
 
     return (
         <section className={styles.section}>

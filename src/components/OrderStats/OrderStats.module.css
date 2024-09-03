@@ -1,0 +1,79 @@
+.orderStats {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.first_row {
+    display: flex;
+    justify-content: space-between;
+    min-height: 206px; 
+    height: auto; 
+    padding: 0;
+}
+
+.second_row,
+.third_row {
+    width: 580px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+.column_in_first_row {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 50%; /* Делим ширину на две равные части, учитывая отступ */
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #F2F2F3;
+}
+
+.orderList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);    
+    /* overflow-y: auto; */
+    scrollbar-width: thin;
+}
+
+@media (min-width: 272px) {
+    .orderList {
+        grid-template-columns: repeat(2, 1fr); /* Делим на 2 колонки, если не умещается */
+    }
+}
+
+.orderItemInWork {
+    font-family: Iceland;
+    font-size: 28px;
+    font-weight: 400;
+    color: #F2F2F3;
+}
+
+
+
+.orderItemDone {
+    font-family: Iceland;
+    font-size: 28px;
+    font-weight: 400;
+    color: #00CCCC;
+}
+
+
+.number {
+    font-family: Iceland;
+    font-size: 144px;
+    font-weight: 400;
+    color: #F2F2F3;
+    margin-top: auto;
+}
+
+

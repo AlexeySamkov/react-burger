@@ -1,0 +1,10 @@
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.emptyDiv {
+    height: 8vh;
+}

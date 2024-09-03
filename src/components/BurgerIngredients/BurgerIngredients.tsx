@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch , useAppSelector } from '../../services/hooks';
 import { setCurrentIngredient } from '../../services/actions/currentIngredientActions';
 import BurgerParts from './BurgerParts/BurgerParts';
 import { IIngredient } from '../../utils/types';
@@ -10,8 +10,8 @@ import { IIngredient } from '../../utils/types';
 
 const BurgerIngredients: React.FC = () => {
     const [current, setCurrent] = useState<string>('bun');
-    const dispatch: any = useDispatch();
-    const { ingredients } = useSelector((state: any) => state.ingredients);
+    const dispatch = useAppDispatch(); // Используем типизированный dispatch
+    const { ingredients } = useAppSelector((state) => state.ingredients);
     const navigate = useNavigate();
     const location = useLocation();
     const containerRef = useRef<HTMLDivElement>(null);
