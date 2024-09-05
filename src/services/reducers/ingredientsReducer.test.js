@@ -55,23 +55,27 @@ describe('ingredientsReducer', () => {
 
     it('should handle GET_ITEMS_SUCCESS', () => {
         const action = {
-          type: GET_ITEMS_SUCCESS,
-          payload: ingredients,
+            type: GET_ITEMS_SUCCESS,
+            payload: ingredients // передаем данные ингредиентов как payload
         };
+
         const expectedState = {
-          ...initialState,
-          ingredients: ingredients.map(item => ({ ...item, counter: 0 })),
-          groupTypes: [
-            { type: 'bun', name: 'Булки' },
-            { type: 'main', name: 'Начинки' },
-            { type: 'sauce', name: 'Соусы' },
-          ],
-          loading: false,
-          error: null,
+            constructorIngredients: [],
+            currentIngredient: null,
+            error: null,
+            groupTypes: [
+                { name: "Булки", type: "bun" },
+                { name: "Начинки", type: "main" },
+                { name: "Соусы", type: "sauce" }
+            ],
+            ingredients: ingredients.map(item => ({ ...item, counter: 0 })), // ожидаем массив ингредиентов с добавленным counter
+            loading: false, // Добавляем недостающее поле loading
+            order: null // Добавляем недостающее поле order
         };
+
         const state = ingredientsReducer(initialState, action);
         expect(state).toEqual(expectedState);
-      });
+    });
 
     it('should handle GET_ITEMS_FAILED', () => {
         const action = {
