@@ -1,4 +1,4 @@
-https://alexeysamkov.github.io/react-burger/index.html
+https://alexeysamkov.github.io/react-burger
 
 <h2>Космическая бургерная</h2>
 
