@@ -4,12 +4,9 @@ import {
     UPDATE_USER_SUCCESS,
     UPDATE_USER_FAILED
   } from '../actions/actions';
-  import { userReducer } from './userReducer';
+  import { userReducer, initialState } from './userReducer';
   
   describe('userReducer', () => {
-    const initialState = {
-      error: null
-    };
   
     it('should return the initial state when an unknown action is passed', () => {
       const action = { type: 'UNKNOWN_ACTION' };

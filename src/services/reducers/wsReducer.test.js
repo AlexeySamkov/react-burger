@@ -5,23 +5,13 @@ import {
     WS_CONNECT_ERROR,
     WS_GET_MESSAGE
   } from '../actions/actions';
-  import { wsReducer } from './wsReducer';
+  import { wsReducer, initialState } from './wsReducer';
   // import {
   //   TResponseData, IOrderHistory
   // } from '../../utils/types'
 
   
   describe('wsReducer', () => {
-    const initialState = {
-      isConnected: false,
-      orders: {
-        success: false,
-        orders: [],
-        total: 0,
-        totalToday: 0,
-      },
-      error: null,
-    };
   
     it('should return the initial state when an unknown action is passed', () => {
       const action = { type: 'UNKNOWN_ACTION' };

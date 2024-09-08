@@ -4,13 +4,9 @@ import {
     PASSWORD_RESET_CONFIRM_SUCCESS,
     PASSWORD_RESET_CONFIRM_FAILED
   } from '../actions/actions';
-  import { passwordReducer } from './passwordReducer';
+  import { passwordReducer, initialState } from './passwordReducer';
   
   describe('passwordReducer', () => {
-    const initialState = {
-      message: null,
-      error: null
-    };
   
     it('should return the initial state', () => {
       expect(passwordReducer(undefined, {} )).toEqual(initialState);

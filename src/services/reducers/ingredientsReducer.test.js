@@ -12,7 +12,7 @@ import {
     UPDATE_INGREDIENT_ORDER,
     RESET_ORDER_NUMBER
 } from '../actions/actions';
-import { ingredientsReducer } from './ingredientsReducer';
+import { ingredientsReducer, initialState } from './ingredientsReducer';
 
 const ingredients = [
     {
@@ -36,15 +36,6 @@ const ingredients = [
 ];
 
 describe('ingredientsReducer', () => {
-    const initialState = {
-        ingredients: [],
-        groupTypes: [],
-        currentIngredient: null,
-        constructorIngredients: [],
-        order: null,
-        error: null,
-        loading: false,
-    };
 
     it('should return the initial state when an unknown action is passed', () => {
         const action = { type: 'UNKNOWN_ACTION' };

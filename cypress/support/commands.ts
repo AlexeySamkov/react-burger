@@ -1,3 +1,9 @@
+Cypress.Commands.add('addBunToConstructor', (bunName) => {
+    cy.get('[class^="BurgerParts_partsContainer"]').contains(bunName).trigger('dragstart');
+    cy.get('[class^="BurgerConstructor_burgerConstructor"]').trigger('drop');
+  });
+// что то нет времени разбираться с командами, потом как ни будь  
+
 /// <reference types="cypress" />
 // ***********************************************
 // This example commands.ts shows you how to

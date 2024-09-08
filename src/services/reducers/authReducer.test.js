@@ -1,4 +1,4 @@
-import { authReducer } from './authReducer';
+import { authReducer, initialState } from './authReducer';
 import {
   REGISTER_SUCCESS,
   REGISTER_FAILED,
@@ -18,11 +18,6 @@ const mockUser = {
 };
 
 describe('authReducer', () => {
-  const initialState = {
-    user: null,
-    isAuthenticated: false,
-    error: null
-  };
 
   it('should return the initial state when an unknown action is passed', () => {
     const action = { type: 'UNKNOWN_ACTION' }

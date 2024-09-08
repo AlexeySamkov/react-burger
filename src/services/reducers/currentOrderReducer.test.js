@@ -5,15 +5,9 @@ import {
     FETCH_CURRENT_ORDER_SUCCESS,
     FETCH_CURRENT_ORDER_FAILED
 } from '../actions/actions';
-import { currentOrderReducer } from './currentOrderReducer';
+import { currentOrderReducer, initialState } from './currentOrderReducer';
 
 describe('currentOrderReducer', () => {
-    const initialState = {
-        currentOrder: null,
-        orderDetails: null,
-        loading: false,
-        error: null,
-    };
 
     //Тестирование начального состояния: Первый тест проверяет, что редьюсер возвращает начальное состояние,
     // когда ему передается неизвестный тип действия.

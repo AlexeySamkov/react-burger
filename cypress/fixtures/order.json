@@ -54,10 +54,10 @@
             "updatedAt": "2024-08-26T13:01:35.822Z"
         },
         "status": "done",
-        "name": "Флюоресцентный антарианский бургер",
+        "name": "Fake order Name",
         "createdAt": "2024-09-08T06:40:54.916Z",
         "updatedAt": "2024-09-08T06:40:55.382Z",
-        "number": 52262,
+        "number": 66666,
         "price": 2064
     }
 }
