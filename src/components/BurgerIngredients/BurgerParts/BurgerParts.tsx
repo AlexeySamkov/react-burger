@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './BurgerParts.module.css';
-import subtract from './../../../images/subtract.svg';
-import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag, DragSourceMonitor } from 'react-dnd';
 import { useAppDispatch } from '../../../services/hooks';
 import { addIngredientToConstructor, removeAllBunsFromConstructor } from '../../../services/actions/ingredientConstructorActions';
@@ -52,7 +51,7 @@ const BurgerParts: React.FC<IBurgerPartsProps> = ({ item, handleOpenModal }) => 
         <img src={item.image} alt={item.name} />
         <div className={styles.priceContainer}>
           <p>{item.price}</p>
-          <img src={subtract} alt={item.name} />
+          <CurrencyIcon type="primary" />
         </div>
         <div className={styles.nameContainer}>
           <p>{item.name}</p>
