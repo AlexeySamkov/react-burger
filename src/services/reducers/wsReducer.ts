@@ -17,7 +17,7 @@ interface IWsState {
   error: string | null;
 }
 
-const initialState: IWsState = {
+export const initialState: IWsState = {
   isConnected: false,
   orders: {
     success: false,
@@ -60,15 +60,6 @@ export const wsReducer = (state = initialState, action: TWSTypes): IWsState => {
         isConnected: false,
         error: 'Ошибка подключения к WebSocket',
       };
-    // case WS_GET_MESSAGE:
-    //   return {
-    //     ...state,
-    //     orders: {
-    //       ...state.orders,
-    //       ...action.payload,
-    //       orders: action.payload.orders.sort((a: IOrderHistory, b: IOrderHistory) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-    //     },
-    //   };
     case WS_GET_MESSAGE:
       return {
         ...state,

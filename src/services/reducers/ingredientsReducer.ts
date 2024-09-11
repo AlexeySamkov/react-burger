@@ -19,7 +19,7 @@ import { IngredientsState } from '../../utils/types';
 import { getHeading } from '../../utils/getHeading';
 
 
-const initialState: IngredientsState = {
+export const initialState: IngredientsState = {
   ingredients: [],
   groupTypes: [],
   currentIngredient: null,

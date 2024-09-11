@@ -6,7 +6,7 @@ import {
     TUserActions
   } from '../actions/actions';
   
-  const initialState = {
+  export const initialState = {
     error: null
   };
   

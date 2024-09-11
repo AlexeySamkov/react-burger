@@ -13,7 +13,7 @@ import {
 import { IUser } from '../../utils/types';
 
 
-const initialState: IAuthState = {
+export const initialState: IAuthState = {
   user: null,
   isAuthenticated: false,
   error: null

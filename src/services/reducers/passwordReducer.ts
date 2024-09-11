@@ -6,7 +6,7 @@ import {
     TPasswordActions
   } from '../actions/actions';
   
-  const initialState = {
+  export const initialState = {
     message: null,
     error: null
   };

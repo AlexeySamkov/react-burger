@@ -1,0 +1,10 @@
+{
+    "success": true,
+    "user": {
+      "email": "alexeysamkov@gmail.com",
+      "name": "Alexey"
+    },
+    "accessToken": "Bearer fakeAccessToken123",
+    "refreshToken": "fakeRefreshToken123"
+  }
+  
